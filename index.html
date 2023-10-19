@@ -53,12 +53,14 @@
         }
 
         /* For mobiltelefon-visning */
-        @media only screen and (max-width: 768px) {
+        @media only screen and (max-width: 500px) {
             section {
                 grid-template-columns: 1fr 1fr;
             }
             h1 {
                 grid-column: span 2;
+                background-color: inherit;
+                border-color: grey;
             }
             .info {
                 display: none;
