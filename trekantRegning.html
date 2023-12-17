@@ -165,7 +165,6 @@
             //EkspertModus skal gjøre at oppgavene blir vanskeligere
             //1 = tall fra 1-5
             //2 = tall fra 1-10
-            //3 = tall fra 1-20
             if (ekspertModus == 1) {
                 tall2 = Math.ceil(Math.random() * 5);
                 tall3 = Math.ceil(Math.random() * 5);
@@ -173,10 +172,6 @@
             else if (ekspertModus == 2) {
                 tall2 = Math.ceil(Math.random() * 10);
                 tall3 = Math.ceil(Math.random() * 10);
-            }
-            else if (ekspertModus == 3) {
-                tall2 = Math.ceil(Math.random() * 20);
-                tall3 = Math.ceil(Math.random() * 20);
             }
             else {
                 alert("fant ikke ekspertModus")
@@ -252,10 +247,7 @@
             }
 
             //Ekspertmodus bestemmer hvor tøffe oppgavene skal være
-            if ((poeng > 40) && (forrigeVarRett)) {
-                ekspertModus = 3;
-            }
-            else if ((poeng > 10) && (forrigeVarRett)) {
+            if ((poeng > 10) && (forrigeVarRett)) {
                 ekspertModus = 2;
             }
             else {
