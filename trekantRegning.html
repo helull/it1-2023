@@ -11,24 +11,28 @@
             flex-direction: column;
             align-items: center;
         }
-span:hover {
-    cursor: grab;
-}
 
-span {
-    border-style: solid;
-    border-width: 9px;
-    border-radius: 30%;
-    border-color:aquamarine;
-    background-color:aquamarine;
-}
-    
-        #dragAndDropElementer {
-            display: grid;
-            width: 50vw;
-            grid-template-columns: repeat(10, 1fr); 
-            grid-gap: 2px;
+        span:hover {
+            cursor: grab;
         }
+
+        span {
+            width:3vw;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 10%;
+            border-color: black;
+            background-color: aquamarine;
+            text-align: center;
+        }
+
+        #hurtigTaster {
+            display: grid;
+            width: 80vw;
+            grid-template-columns: repeat(10, 1fr);
+            grid-gap: 3px;
+        }
+
         #trekant {
             display: grid;
             width: 50vw;
@@ -93,54 +97,38 @@ span {
     </div>
     <h3 id="melding"></h3>
     <button id="btnVelgTall">Velg</button>
-
-    <div style="display:inline">
-        <br>
-        <h2>Drag & drop:</h2>
-        <div id="dragAndDropElementer">
-        <span draggable="true" ondragstart="drag(event)">0</span>
-        <span draggable="true" ondragstart="drag(event)">0.1</span>
-        <span draggable="true" ondragstart="drag(event)">0.2</span>
-        <span draggable="true" ondragstart="drag(event)">0.3</span>
-        <span draggable="true" ondragstart="drag(event)">0.4</span>
-        <span draggable="true" ondragstart="drag(event)">0.5</span>
-        <span draggable="true" ondragstart="drag(event)">0.6</span>
-        <span draggable="true" ondragstart="drag(event)">0.7</span>
-        <span draggable="true" ondragstart="drag(event)">0.8</span>
-        <span draggable="true" ondragstart="drag(event)">0.9</span>
-        <span draggable="true" ondragstart="drag(event)">1</span>
-        <span draggable="true" ondragstart="drag(event)">2</span>
-        <span draggable="true" ondragstart="drag(event)">3</span>
-        <span draggable="true" ondragstart="drag(event)">4</span>
-        <span draggable="true" ondragstart="drag(event)">5</span>
-        <span draggable="true" ondragstart="drag(event)">6</span>
-        <span draggable="true" ondragstart="drag(event)">7</span>
-        <span draggable="true" ondragstart="drag(event)">8</span>
-        <span draggable="true" ondragstart="drag(event)">9</span>
-        <span draggable="true" ondragstart="drag(event)">10</span>
-        <span draggable="true" ondragstart="drag(event)">11</span>
-        <span draggable="true" ondragstart="drag(event)">12</span>
-        <span draggable="true" ondragstart="drag(event)">13</span>
-        <span draggable="true" ondragstart="drag(event)">14</span>
-        <span draggable="true" ondragstart="drag(event)">15</span>
-        <span draggable="true" ondragstart="drag(event)">16</span>
-        <span draggable="true" ondragstart="drag(event)">17</span>
-        <span draggable="true" ondragstart="drag(event)">18</span>
-        <span draggable="true" ondragstart="drag(event)">19</span>
-        <span draggable="true" ondragstart="drag(event)">20</span>
-        <span draggable="true" ondragstart="drag(event)">21</span>
-        <span draggable="true" ondragstart="drag(event)">22</span>
-        <span draggable="true" ondragstart="drag(event)">23</span>
-        <span draggable="true" ondragstart="drag(event)">24</span>
-        <span draggable="true" ondragstart="drag(event)">25</span>
-        <span draggable="true" ondragstart="drag(event)">26</span>
-        <span draggable="true" ondragstart="drag(event)">27</span>
-        <span draggable="true" ondragstart="drag(event)">28</span>
-        <span draggable="true" ondragstart="drag(event)">29</span>
+    <br>
+    <div id="hurtigTaster">
+        <span>0</span>
+        <span>0.1</span>
+        <span>0.2</span>
+        <span>0.3</span>
+        <span>0.4</span>
+        <span>0.5</span>
+        <span>0.6</span>
+        <span>0.7</span>
+        <span>0.8</span>
+        <span>0.9</span>
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+        <span>7</span>
+        <span>8</span>
+        <span>9</span>
+        <span>10</span>
+        <span>11</span>
+        <span>12</span>
+        <span>13</span>
+        <span>14</span>
+        <span>15</span>
+        <span>16</span>
+        <span>17</span>
+        <span>18</span>
+        <span>19</span>
     </div>
-        
-    </div>
-
     <script>
         var poeng = 0;
         var deleModus = false;
@@ -167,39 +155,39 @@ span {
             //3 = tall fra 1-20
             if (ekspertModus == 1) {
                 tall2 = Math.ceil(Math.random() * 5);
-                tall3 = Math.ceil(Math.random() * 5);  
+                tall3 = Math.ceil(Math.random() * 5);
             }
             else if (ekspertModus == 2) {
                 tall2 = Math.ceil(Math.random() * 10);
-                tall3 = Math.ceil(Math.random() * 10);  
+                tall3 = Math.ceil(Math.random() * 10);
             }
             else if (ekspertModus == 3) {
                 tall2 = Math.ceil(Math.random() * 20);
-                tall3 = Math.ceil(Math.random() * 20);  
+                tall3 = Math.ceil(Math.random() * 20);
             }
             else {
                 alert("fant ikke ekspertModus")
             }
-            
+
             //Tallet i toppen er ALLID produktet av de to nede
             tall1 = tall2 * tall3;
 
             //Pga desimalproblem må man først finne svaret
             //før vi deler begge tallene på 10!
             if (desimalModus) {
-                tall1 = tall1/10;
-                if (Math.random()>0.5) {
-                    tall2 = tall2/10;
+                tall1 = tall1 / 10;
+                if (Math.random() > 0.5) {
+                    tall2 = tall2 / 10;
                 } else {
-                    tall3 = tall3/10;
+                    tall3 = tall3 / 10;
                 }
-            }       
+            }
 
             if (delemodus) {
 
                 //Hvis vi er i desimalmodus MÅ vi tvinge
                 //kun en desimal (.toFixed)
-                if(desimalModus) {
+                if (desimalModus) {
                     inpTall1.value = String(tall1.toFixed(1));
                 }
 
@@ -209,20 +197,23 @@ span {
                 }
 
                 //skjul tall2 ELLER tall3 (tilfeldig)
-                if (Math.random()>0.5) {
+                if (Math.random() > 0.5) {
                     inpTall2.value = String(tall2);
                     inpTall3.value = "";
+                    inpTall3.focus();
                     tallIBruk = 3;
                 }
                 else {
                     inpTall2.value = "";
+                    inpTall2.focus();
                     inpTall3.value = String(tall3);
                     tallIBruk = 2;
                 }
 
-            //Ikke i delemodus, dvs vi er i gangemodus    
+                //Ikke i delemodus, dvs vi er i gangemodus    
             } else {
                 inpTall1.value = "";
+                inpTall1.focus();
                 inpTall2.value = String(tall2);
                 inpTall3.value = String(tall3);
                 tallIBruk = 1;
@@ -230,7 +221,7 @@ span {
         }
 
         function vurderTallene() {
-            if ((poeng > 10) && (forrigeVarRett)) {
+            if ((poeng > 50) && (forrigeVarRett)) {
                 delemodus = true;
             }
             else {
@@ -245,7 +236,7 @@ span {
             }
 
             //Ekspertmodus bestemmer hvor tøffe oppgavene skal være
-            if ((poeng > 30) && (forrigeVarRett)) {
+            if ((poeng > 10) && (forrigeVarRett)) {
                 ekspertModus = 2;
             }
             if ((poeng > 40) && (forrigeVarRett)) {
@@ -264,7 +255,7 @@ span {
                 btnVelgTall.style.backgroundColor = "lightgrey";
                 poeng++;
                 melding.style.color = "green";
-                melding_text = ["Bra!", "Fantastisk", "Supert!!", "Yes!!", "Jepp!", "Jadda!!!", "Fytti katta så bra!"]
+                melding_text = ["Bra!", "Fantastisk", "Supert!!", "Yes!!", "Jepp!", "Jadda!!!", "Fytti katta så bra!", "Genialt", "Hoho", "Einstein!", "Mattehue!", "Spør meg igjen da!", "Ah, lett!", "Lættis"]
                 var nr = Math.floor(Math.random() * melding_text.length);
                 melding.innerHTML = melding_text[nr];
                 btnVelgTall.innerHTML = poeng + " poeng";
@@ -280,28 +271,37 @@ span {
                 melding.style.color = "red";
                 melding.innerHTML = "...Feil...";
                 btnVelgTall.innerHTML = poeng + " poeng";
-                if(tallIBruk = 1) { inpTall1.value = ""}
-                else if(tallIBruk = 2) { inpTall2.value = ""}
-                else if(tallIBruk = 3) { inpTall3.value = ""}
-                else {alert("Jøje oss - tallIBruk er: " + tallIBruk)}
+                if (tallIBruk = 1) { inpTall1.value = ""; inpTall1.focus(); }
+                else if (tallIBruk = 2) { inpTall2.value = ""; inpTall2.focus(); }
+                else if (tallIBruk = 3) { inpTall3.value = ""; inpTall3.focus(); }
+                else { alert("Jøje oss - tallIBruk er: " + tallIBruk) }
             }
-
         }
 
-function allowDrop(ev) {
-  ev.preventDefault();
-}
+        document.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                // document.getElementById("myBtn").click();
+                vurderTallene();
+            }
+        })
 
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.innerHTML);
-}
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
 
-function drop(ev) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  ev.target.value = data;
-  vurderTallene();
-}
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.innerHTML);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.value = data;
+            vurderTallene();
+        }
 
     </script>
 </body>
