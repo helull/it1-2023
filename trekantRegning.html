@@ -100,9 +100,8 @@
 <body>
     <div id="trekant">
         <img src="Trekant.png" alt="Bilde av trekant">
-        <div id="tomrom">Tekst</div>
-        <input id="inpTall1" value="6">
         <div id="tomrom"></div>
+        <input id="inpTall1" value="6">
         <input id="inpTall2" value="2">
         <input id="inpTall3" value="3">
     </div>
@@ -141,18 +140,8 @@
                     for (var i = 1; i <= 25; i++) {
                         hurtigTaster.innerHTML += "<span>" + i + "</span>";
                     }
-                }
-
-                if (ekspertModus == 2) {
-                    for (var i = 1; i <= 100; i++) {
-                        hurtigTaster.innerHTML += "<span>" + i + "</span>";
-                    }
-                }
+                } 
             }
-            else {
-                hurtigTaster.innerHTML += "<h3>Nå må svaret tastes inn...</h3>";
-            }
-
         }
 
         function tastatur(evt) {
@@ -161,6 +150,11 @@
         }
 
         function resetInputVerdier() {
+
+            // Sett sort tekst i tilfelle den har vært rød eller grønn
+            inpTall1.style.color = "black";
+            inpTall2.style.color = "black";
+            inpTall3.style.color = "black";
 
             //EkspertModus skal gjøre at oppgavene blir vanskeligere
             //1 = tall fra 1-5
@@ -263,7 +257,37 @@
                 btnVelgTall.style.backgroundColor = "lightgrey";
                 poeng++;
                 melding.style.color = "green";
-                melding_text = ["Bra!", "Fantastisk", "Supert!!", "Yes!!", "Jepp!", "Jadda!!!", "Fytti katta så bra!", "Genialt", "Hoho", "Einstein!", "Mattehue!", "Spør meg igjen da!", "Ah, lett!", "Lættis"]
+                melding_text = ["Fantastisk jobbet!",
+                    "Du er en matte-stjerne!",
+                    "Utrolig bra!",
+                    "Bra gjort!",
+                    "Du er virkelig flink i matte!",
+                    "Det var imponerende!",
+                    "Du har virkelig forstått dette!",
+                    "Du har en flott matematisk tankegang!",
+                    "Du er en matematisk mester!",
+                    "Du har virkelig satt deg inn i dette!",
+                    "Du har gjort en strålende jobb!",
+                    "Du er en matte-genius!",
+                    "Du har virkelig knekt koden her!",
+                    "Du har en utmerket matematisk forståelse!",
+                    "Du har en flott evne til å løse matematiske problemer!",
+                    "Du har virkelig gjort leksene dine godt!",
+                    "Du har en flott matematisk intuisjon!",
+                    "Du er en matematisk superhelt!",
+                    "Du har virkelig tatt tak i dette!",
+                    "Du har en flott matematisk logikk!",
+                    "Du har virkelig forstått matematikkens verden!",
+                    "Du har en flott matematisk kunnskap!",
+                    "Du har virkelig gjort en god jobb med dette!",
+                    "Du har en flott matematisk forståelse!",
+                    "Du er en matematisk ekspert!",
+                    "Du har virkelig forstått det matematiske språket!",
+                    "Du har en flott matematisk evne!",
+                    "Du har virkelig gjort en god jobb med å løse denne oppgaven!",
+                    "Du har en flott matematisk tankegang!",
+                    "Du har virkelig forstått det matematiske konseptet!",
+                    "Bra!", "Fantastisk", "Supert!!", "Yes!!", "Jepp!", "Jadda!!!", "Fytti katta så bra!", "Genialt", "Hoho", "Einstein!", "Mattehue!", "Spør meg igjen da!", "Ah, lett!", "Lættis"]
                 var nr = Math.floor(Math.random() * melding_text.length);
                 melding.innerHTML = melding_text[nr];
                 btnVelgTall.innerHTML = poeng + " poeng";
@@ -286,15 +310,41 @@
             }
         }
 
-        document.addEventListener("keypress", function (event) {
+        function finnSisteTall() {
+            alert("fasit");
+            
+        }
+
+        document.addEventListener("keypress", skrivForslag);
+        function skrivForslag() {
+            if (event.key === "f") {
+                event.preventDefault();  //sørger for at det IKKE skrives "f". 
+                tall1 = Number(inpTall1.value);
+                tall2 = Number(inpTall2.value);
+                tall3 = Number(inpTall3.value);
+                if (inpTall1.value == "") {
+                    tall1 = tall2 * tall3;
+                    inpTall1.value = String(tall1);
+                    inpTall1.style.color = "green";
+                } else if (inpTall2.value == "") {
+                    tall2 = tall1 / tall3;
+                    inpTall2.value = String(tall2.toFixed(1));
+                    inpTall2.style.color = "green";
+                } else { // inpTall3.value == 3
+                    tall3 = tall1 / tall2;
+                    inpTall3.value = String(tall3.toFixed(1));
+                    inpTall3.style.color = "green";
+                }
+            }
+        }
+
+        document.addEventListener("keypress", enterTrykket);
+        function enterTrykket (event) {
             if (event.key === "Enter") {
-                // Cancel the default action, if needed
-                event.preventDefault();
-                // Trigger the button element with a click
-                // document.getElementById("myBtn").click();
                 vurderTallene();
             }
-        })
+        }
+    
 
     </script>
 </body>
