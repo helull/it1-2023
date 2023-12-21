@@ -53,17 +53,17 @@
 
         #inpTall1 {
             grid-column: span 2;
-            inputmode:"none";
+            inputmode: "numeric";
         }
 
         #inpTall2 {
             grid-column: span 2;
-            inputmode:"none";
+            inputmode: "numeric";
         }
 
         #inpTall3 {
             grid-column: span 2;
-            inputmode:"none";
+            inputmode: "numeric";
         }
 
         #inpTall1:focus {
@@ -141,7 +141,7 @@
 
         function settOppHurtigTaster() {
             hurtigTaster.innerHTML = "";
-            
+
             if ((!desimalModus) && (ekspertModus == 1)) {
                 for (var i = 1; i <= 25; i++) {
                     hurtigTaster.innerHTML += "<span>" + i + "</span>";
@@ -171,12 +171,12 @@
                 var tempTall18 = tempTall10 + 15;
                 var tempTall19 = tempTall10 * 3;
                 var tempTall20 = tempTall10 * 4;
-                
+
                 var tempArrayAvTall = [tempTall1, tempTall2, tempTall3, tempTall4, tempTall5, tempTall6, tempTall7, tempTall8, tempTall9, tempTall10,
-                                       tempTall11, tempTall12, tempTall13, tempTall14, tempTall15, tempTall16, tempTall17, tempTall18, tempTall19, tempTall20];
+                    tempTall11, tempTall12, tempTall13, tempTall14, tempTall15, tempTall16, tempTall17, tempTall18, tempTall19, tempTall20];
 
                 //sorterer tallene i arrayen fra lavest til høyest
-                tempArrayAvTall.sort(function(a, b){return a-b});
+                tempArrayAvTall.sort(function (a, b) { return a - b });
                 for (var i = 0; i < tempArrayAvTall.length; i++) {
                     hurtigTaster.innerHTML += "<span>" + tempArrayAvTall[i] + "</span>";
                 }
