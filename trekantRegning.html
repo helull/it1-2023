@@ -53,14 +53,17 @@
 
         #inpTall1 {
             grid-column: span 2;
+            inputmode:"none";
         }
 
         #inpTall2 {
             grid-column: span 2;
+            inputmode:"none";
         }
 
         #inpTall3 {
             grid-column: span 2;
+            inputmode:"none";
         }
 
         #inpTall1:focus {
@@ -114,6 +117,9 @@
     <script>
         var poeng = 0;
         var deleModus = false;
+        var deleModusGrense = 5;
+        var desimalModusGrense = 10;
+        var ekspertModusGrense = 15;
         var desimalModus = false;
         var forrigeVarRett = true;
         var ekspertModus = 1;
@@ -135,12 +141,45 @@
 
         function settOppHurtigTaster() {
             hurtigTaster.innerHTML = "";
-            if (!desimalModus) {
-                if (ekspertModus == 1) {
-                    for (var i = 1; i <= 25; i++) {
-                        hurtigTaster.innerHTML += "<span>" + i + "</span>";
-                    }
-                } 
+            
+            if ((!desimalModus) && (ekspertModus == 1)) {
+                for (var i = 1; i <= 25; i++) {
+                    hurtigTaster.innerHTML += "<span>" + i + "</span>";
+                }
+            } else {  // bygg opp en rekke tilfeldige tall, hvor ett er riktig
+
+                //Finn fasit og en hel haug med tall som er "noe med fasit"
+                var tempTall1 = finnFasit(Number(inpTall1.value), Number(inpTall2.value), Number(inpTall3.value));
+                var tempTall2 = tempTall1 * 10;
+                var tempTall3 = tempTall1 * 5;
+                var tempTall4 = tempTall1 * 2;
+                var tempTall5 = tempTall1 / 10;
+                var tempTall6 = tempTall1 / 5;
+                var tempTall7 = tempTall1 / 2;
+                var tempTall8 = tempTall1 + 5;
+                var tempTall9 = tempTall1 + 10;
+
+                //Finn et annet tilfeldigtall mellom 1 og 10 og andre "rundt" dette
+                var tempTall10 = Math.ceil(Math.random() * 10);
+                var tempTall11 = tempTall10 + 1;
+                var tempTall12 = tempTall10 + 2;
+                var tempTall13 = tempTall10 + 3;
+                var tempTall14 = tempTall10 + 5;
+                var tempTall15 = tempTall10 + 8;
+                var tempTall16 = tempTall10 + 10;
+                var tempTall17 = tempTall10 / 2;
+                var tempTall18 = tempTall10 + 15;
+                var tempTall19 = tempTall10 * 3;
+                var tempTall20 = tempTall10 * 4;
+                
+                var tempArrayAvTall = [tempTall1, tempTall2, tempTall3, tempTall4, tempTall5, tempTall6, tempTall7, tempTall8, tempTall9, tempTall10,
+                                       tempTall11, tempTall12, tempTall13, tempTall14, tempTall15, tempTall16, tempTall17, tempTall18, tempTall19, tempTall20];
+
+                //sorterer tallene i arrayen fra lavest til høyest
+                tempArrayAvTall.sort(function(a, b){return a-b});
+                for (var i = 0; i < tempArrayAvTall.length; i++) {
+                    hurtigTaster.innerHTML += "<span>" + tempArrayAvTall[i] + "</span>";
+                }
             }
         }
 
@@ -151,7 +190,7 @@
 
         function resetInputVerdier() {
 
-            // Sett sort tekst i tilfelle den har vært rød eller grønn
+            // Sett sort tekst i tilfelle den har vært grønn
             inpTall1.style.color = "black";
             inpTall2.style.color = "black";
             inpTall3.style.color = "black";
@@ -170,9 +209,6 @@
             else {
                 alert("fant ikke ekspertModus")
             }
-
-            //Sett opp tastatur dersom vi er i portrettmodus
-            settOppHurtigTaster();
 
             //Tallet i toppen er ALLID produktet av de to nede
             tall1 = tall2 * tall3;
@@ -223,17 +259,20 @@
                 inpTall3.value = String(tall3);
                 tallIBruk = 1;
             }
+
+            //Sett opp tastatur dersom vi er i portrettmodus
+            settOppHurtigTaster();
         }
 
         function vurderTallene() {
-            if ((poeng > 50) && (forrigeVarRett)) {
+            if ((poeng > deleModusGrense) && (forrigeVarRett)) {
                 delemodus = true;
             }
             else {
                 delemodus = false;
             }
 
-            if ((poeng > 80) && (forrigeVarRett)) {
+            if ((poeng > desimalModusGrense) && (forrigeVarRett)) {
                 desimalModus = true;
             }
             else {
@@ -241,7 +280,7 @@
             }
 
             //Ekspertmodus bestemmer hvor tøffe oppgavene skal være
-            if ((poeng > 10) && (forrigeVarRett)) {
+            if ((poeng > ekspertModusGrense) && (forrigeVarRett)) {
                 ekspertModus = 2;
             }
             else {
@@ -310,41 +349,52 @@
             }
         }
 
-        function finnSisteTall() {
-            alert("fasit");
-            
+        function finnFasit(t1, t2, t3) {
+            if (t1 == 0) {
+                return t2 * t3;
+            }
+            else if (t2 == 0) {
+                return t1 / t3;
+            }
+            else { // (elementNr == 3)
+                return t1 / t2;
+            }
         }
 
         document.addEventListener("keypress", skrivForslag);
-        function skrivForslag() {
+        function skrivForslag(event) {
+            tall1 = Number(inpTall1.value);
+            tall2 = Number(inpTall2.value);
+            tall3 = Number(inpTall3.value);
+            var fasit = -2;
+
+
             if (event.key === "f") {
-                event.preventDefault();  //sørger for at det IKKE skrives "f". 
-                tall1 = Number(inpTall1.value);
-                tall2 = Number(inpTall2.value);
-                tall3 = Number(inpTall3.value);
+                event.preventDefault();  //sørger for at det IKKE skrives "f".
                 if (inpTall1.value == "") {
-                    tall1 = tall2 * tall3;
-                    inpTall1.value = String(tall1);
+                    fasit = finnFasit(tall1, tall2, tall3);
+                    inpTall1.value = String(fasit);
                     inpTall1.style.color = "green";
-                } else if (inpTall2.value == "") {
-                    tall2 = tall1 / tall3;
-                    inpTall2.value = String(tall2.toFixed(1));
+                }
+                else if (inpTall2.value == "") {
+                    fasit = finnFasit(tall1, tall2, tall3)
+                    inpTall2.value = String(fasit.toFixed(1));
                     inpTall2.style.color = "green";
-                } else { // inpTall3.value == 3
-                    tall3 = tall1 / tall2;
-                    inpTall3.value = String(tall3.toFixed(1));
+                }
+                else {  //inpTall3.value == ""
+                    fasit = finnFasit(tall1, tall2, tall3)
+                    inpTall3.value = String(fasit.toFixed(1));
                     inpTall3.style.color = "green";
                 }
             }
         }
 
         document.addEventListener("keypress", enterTrykket);
-        function enterTrykket (event) {
+        function enterTrykket(event) {
             if (event.key === "Enter") {
                 vurderTallene();
             }
         }
-    
 
     </script>
 </body>
