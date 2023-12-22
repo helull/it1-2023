@@ -17,21 +17,21 @@
         }
 
         span {
-            width: 6vw;
+            width: 5vw;
             border-style: solid;
-            border-width: 1px;
-            border-radius: 10%;
+            border-width: 3px;
+            border-radius: 15%;
             border-color: black;
-            background-color: aquamarine;
+            background-color:cornflowerblue;
+            color:aliceblue;
             text-align: center;
         }
 
         #hurtigTaster {
-            display: grid;
+            display: none;
             width: 80vw;
-            grid-template-columns: repeat(10, 1fr);
+            grid-template-columns: repeat(14, 1fr);
             grid-gap: 3px;
-            display: grid;
         }
 
         #trekant {
@@ -81,17 +81,13 @@
             text-align: center;
             background-color: inherit;
             border-style: none;
-            font-size: xx-large;
+            font-size: xxx-large;
             z-index: 2;
         }
 
-        @media only screen and (orientation:landscape) {
+        @media only screen and (orientation:portrait) {
             input {
-                font-size: xxx-large;
-            }
-
-            #hurtigTaster {
-                display: none;
+                font-size: xx-large;
             }
         }
     </style>
@@ -102,11 +98,11 @@
         <img src="Trekant.png" alt="Bilde av trekant">
         <div id="tomrom"></div>
         <input inputmode="decimal" id="inpTall1" value="6">
-        <input inputmode="numeric" id="inpTall2" value="2">
-        <input inputmode="none" id="inpTall3" value="3">
+        <input inputmode="decimal" id="inpTall2" value="2">
+        <input inputmode="decimal" id="inpTall3" value="3">
     </div>
     <h3 id="melding"></h3>
-    <button id="btnVelgTall">Velg</button>
+    <button id="btnVelgTall" >Velg</button>
     <br>
     <div id="hurtigTaster">
     </div>
@@ -114,12 +110,14 @@
     <script>
         var poeng = 0;
         var deleModus = false;
-        var deleModusGrense = 5;
-        var desimalModusGrense = 10;
-        var ekspertModusGrense = 15;
         var desimalModus = false;
+
+        const deleModusGrense = 50;
+        const desimalModusGrense = 100;
+        const ekspertModusGrenser = [3, 6, 9, 12, 15, 18, 21];  //Må passe med antall valg i resetInputVerdier()
+
+        var ekspertModusGrenseIndex = 0;
         var forrigeVarRett = true;
-        var ekspertModus = 1;
         var tall1 = 6;
         var tall2 = 2;
         var tall3 = 3;
@@ -139,7 +137,7 @@
         function settOppHurtigTaster() {
             hurtigTaster.innerHTML = "";
 
-            if ((!desimalModus) && (ekspertModus == 1)) {
+            if ((!desimalModus) && (ekspertModusGrenseIndex == 0)) {
                 for (var i = 1; i <= 25; i++) {
                     hurtigTaster.innerHTML += "<span>" + i + "</span>";
                 }
@@ -151,26 +149,18 @@
                 var tempTall3 = tempTall1 * 5;
                 var tempTall4 = tempTall1 * 2;
                 var tempTall5 = tempTall1 / 10;
-                var tempTall6 = tempTall1 / 5;
-                var tempTall7 = tempTall1 / 2;
-                var tempTall8 = tempTall1 + 5;
-                var tempTall9 = tempTall1 + 10;
+                var tempTall6 = tempTall1 + 5;
 
                 //Finn et annet tilfeldigtall mellom 1 og 10 og andre "rundt" dette
-                var tempTall10 = Math.ceil(Math.random() * 10);
-                var tempTall11 = tempTall10 + 1;
-                var tempTall12 = tempTall10 + 2;
-                var tempTall13 = tempTall10 + 3;
-                var tempTall14 = tempTall10 + 5;
-                var tempTall15 = tempTall10 + 8;
-                var tempTall16 = tempTall10 + 10;
-                var tempTall17 = tempTall10 / 2;
-                var tempTall18 = tempTall10 + 15;
-                var tempTall19 = tempTall10 * 3;
-                var tempTall20 = tempTall10 * 4;
+                var tempTall7 = Math.ceil(Math.random() * 10);
+                var tempTall8 = tempTall7 * 10;
+                var tempTall9 = tempTall7 * 5;
+                var tempTall10 = tempTall7 * 2;
+                var tempTall11 = tempTall7 / 10;
+                var tempTall12 = tempTall7 + 5;
 
-                var tempArrayAvTall = [tempTall1, tempTall2, tempTall3, tempTall4, tempTall5, tempTall6, tempTall7, tempTall8, tempTall9, tempTall10,
-                    tempTall11, tempTall12, tempTall13, tempTall14, tempTall15, tempTall16, tempTall17, tempTall18, tempTall19, tempTall20];
+                var tempArrayAvTall = [tempTall1, tempTall2, tempTall3, tempTall4, tempTall5, tempTall6,
+                                       tempTall7, tempTall8, tempTall9, tempTall10, tempTall11, tempTall12];
 
                 //sorterer tallene i arrayen fra lavest til høyest
                 tempArrayAvTall.sort(function (a, b) { return a - b });
@@ -193,18 +183,37 @@
             inpTall3.style.color = "black";
 
             //EkspertModus skal gjøre at oppgavene blir vanskeligere
-            //1 = tall fra 1-5
-            //2 = tall fra 1-10
-            if (ekspertModus == 1) {
+            //Antall grenser må passe med antall elementer i ekspertModusGrenser
+            if (ekspertModusGrenseIndex == 0) {
                 tall2 = Math.ceil(Math.random() * 5);
                 tall3 = Math.ceil(Math.random() * 5);
             }
-            else if (ekspertModus == 2) {
+            else if (ekspertModusGrenseIndex == 1) {
+                tall2 = Math.ceil(Math.random() * 5);
+                tall3 = Math.ceil(Math.random() * 10);
+            }
+            else if (ekspertModusGrenseIndex == 2) {
                 tall2 = Math.ceil(Math.random() * 10);
                 tall3 = Math.ceil(Math.random() * 10);
             }
+            else if (ekspertModusGrenseIndex == 3) {
+                tall2 = Math.ceil(Math.random() * 15);
+                tall3 = Math.ceil(Math.random() * 10);
+            }
+            else if (ekspertModusGrenseIndex == 4) {
+                tall2 = Math.ceil(Math.random() * 20);
+                tall3 = Math.ceil(Math.random() * 10);
+            }
+            else if (ekspertModusGrenseIndex == 5) {
+                tall2 = Math.ceil(Math.random() * 20);
+                tall3 = Math.ceil(Math.random() * 20);
+            }
+            else if (ekspertModusGrenseIndex == 6) {
+                tall2 = Math.ceil(Math.random() * 10) + 10;
+                tall3 = Math.ceil(Math.random() * 10) + 10;
+            }
             else {
-                alert("fant ikke ekspertModus")
+                alert("fant ikke ekspertModusGrenseIndex, den er: " + ekspertModusGrenseIndex)
             }
 
             //Tallet i toppen er ALLID produktet av de to nede
@@ -259,6 +268,8 @@
 
             //Sett opp tastatur dersom vi er i portrettmodus
             settOppHurtigTaster();
+            hurtigTaster.style.display= "none";
+
         }
 
         function vurderTallene() {
@@ -276,12 +287,20 @@
                 desimalModus = false;
             }
 
-            //Ekspertmodus bestemmer hvor tøffe oppgavene skal være
-            if ((poeng > ekspertModusGrense) && (forrigeVarRett)) {
-                ekspertModus = 2;
+            //Ekspertmodus bestemmer hvor tøffe oppgavene skal være            
+            console.log("EksPertModusGrenseIndex er: " + ekspertModusGrenseIndex);
+            console.log("poeng er" + poeng);
+
+            if ((poeng > ekspertModusGrenser[ekspertModusGrenseIndex]) && (ekspertModusGrenseIndex < ekspertModusGrenser.length-1)) {
+                console.log("ekspertmodusGrense gjør at ekspertmodusGrenseIndex øker med 1")
+                ekspertModusGrenseIndex = ekspertModusGrenseIndex + 1;
             }
-            else {
-                ekspertModus = 1;
+
+            //Hvis forrige var feil, og ekspertmodus er OVER 1
+            if (!forrigeVarRett) {
+                if(ekspertModusGrenseIndex > 1) {
+                    ekspertModusGrenseIndex = ekspertModusGrenseIndex - 1;
+                }
             }
 
             tall1 = Number(inpTall1.value);
@@ -383,6 +402,10 @@
                     inpTall3.value = String(fasit.toFixed(1));
                     inpTall3.style.color = "green";
                 }
+            }
+            else if(event.key === ".") {
+                event.preventDefault();  //sørger for at det IKKE skrives "0".
+                hurtigTaster.style.display= "grid";
             }
         }
 
