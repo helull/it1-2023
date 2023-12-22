@@ -385,7 +385,7 @@
             var fasit = -2;
 
 
-            if (event.key === "f") {
+            if (event.key == "f") {
                 event.preventDefault();  //sørger for at det IKKE skrives "f".
                 if (inpTall1.value == "") {
                     fasit = finnFasit(tall1, tall2, tall3);
@@ -403,7 +403,7 @@
                     inpTall3.style.color = "green";
                 }
             }
-            else if(event.key === ".") {
+            else if(event.key == ",") {
                 event.preventDefault();  //sørger for at det IKKE skrives "0".
                 hurtigTaster.style.display= "grid";
             }
