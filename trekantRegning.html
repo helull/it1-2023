@@ -22,8 +22,8 @@
             border-width: 3px;
             border-radius: 15%;
             border-color: black;
-            background-color:cornflowerblue;
-            color:aliceblue;
+            background-color: cornflowerblue;
+            color: aliceblue;
             text-align: center;
         }
 
@@ -85,9 +85,14 @@
             z-index: 2;
         }
 
+        button {
+            font-size: 40px;
+            border-radius: 10%;
+        }
+
         @media only screen and (orientation:portrait) {
             input {
-                font-size: xx-large;
+                font-size: xxx-large;  
             }
         }
     </style>
@@ -102,19 +107,21 @@
         <input inputmode="decimal" id="inpTall3" value="3">
     </div>
     <h3 id="melding"></h3>
-    <button id="btnVelgTall" >Velg</button>
+    <button id="btnVelgTall">Trykk her ...</button>
     <br>
     <div id="hurtigTaster">
     </div>
 
     <script>
         var poeng = 0;
+        var pF = 10; //poengFaktor
         var deleModus = false;
         var desimalModus = false;
 
-        const deleModusGrense = 25;
-        const desimalModusGrense = 50;
-        const ekspertModusGrenser = [5, 10, 20, 30, 50, 60, 70];  //Må passe med antall valg i resetInputVerdier()
+        //Heltallet er antall riktige svar som kreves for modusendring
+        const deleModusGrense = 25 * pF;
+        const desimalModusGrense = 50 * pF;
+        const ekspertModusGrenser = [5 * pF, 10 * pF, 20 * pF, 30 * pF, 50 * pF, 60 * pF, 70 * pF];  //Må passe med antall valg i resetInputVerdier()
 
         var ekspertModusGrenseIndex = 0;
         var forrigeVarRett = true;
@@ -130,8 +137,16 @@
         var arrayTallIBruk = [inpTall1, inpTall2, inpTall3]
 
         var btnVelgTall = document.getElementById("btnVelgTall");
-        btnVelgTall.onclick = vurderTallene;
 
+        function tellNed() {
+            if (poeng > 0) {
+                poeng--;
+            }
+            btnVelgTall.innerHTML = poeng + " poeng";
+        }
+
+        setInterval(tellNed, 1000);
+        btnVelgTall.onclick = vurderTallene;
         hurtigTaster.onclick = tastatur;
 
         function settOppHurtigTaster() {
@@ -160,7 +175,7 @@
                 var tempTall12 = tempTall7 + 5;
 
                 var tempArrayAvTall = [tempTall1, tempTall2, tempTall3, tempTall4, tempTall5, tempTall6,
-                                       tempTall7, tempTall8, tempTall9, tempTall10, tempTall11, tempTall12];
+                    tempTall7, tempTall8, tempTall9, tempTall10, tempTall11, tempTall12];
 
                 //sorterer tallene i arrayen fra lavest til høyest
                 tempArrayAvTall.sort(function (a, b) { return a - b });
@@ -268,7 +283,7 @@
 
             //Sett opp tastatur dersom vi er i portrettmodus
             settOppHurtigTaster();
-            hurtigTaster.style.display= "none";
+            hurtigTaster.style.display = "none";
 
         }
 
@@ -291,14 +306,14 @@
             console.log("EksPertModusGrenseIndex er: " + ekspertModusGrenseIndex);
             console.log("poeng er" + poeng);
 
-            if ((poeng > ekspertModusGrenser[ekspertModusGrenseIndex]) && (ekspertModusGrenseIndex < ekspertModusGrenser.length-1)) {
+            if ((poeng > ekspertModusGrenser[ekspertModusGrenseIndex]) && (ekspertModusGrenseIndex < ekspertModusGrenser.length - 1)) {
                 console.log("ekspertmodusGrense gjør at ekspertmodusGrenseIndex øker med 1")
                 ekspertModusGrenseIndex = ekspertModusGrenseIndex + 1;
             }
 
             //Hvis forrige var feil, og ekspertmodus er OVER 1
             if (!forrigeVarRett) {
-                if(ekspertModusGrenseIndex > 1) {
+                if (ekspertModusGrenseIndex > 1) {
                     ekspertModusGrenseIndex = ekspertModusGrenseIndex - 1;
                 }
             }
@@ -310,7 +325,7 @@
             if (Math.abs(tall1 - (tall2 * tall3)) < 0.01) {
                 forrigeVarRett = true;
                 btnVelgTall.style.backgroundColor = "lightgrey";
-                poeng++;
+                poeng = poeng + pF;
                 melding.style.color = "green";
                 melding_text = ["Fantastisk jobbet!",
                     "Du er en matte-stjerne!",
@@ -348,11 +363,11 @@
                 btnVelgTall.innerHTML = poeng + " poeng";
 
                 //reset dersom man svarer rett
-                resetInputVerdier()
+                setTimeout(resetInputVerdier, 500);
             }
 
             else {
-                poeng--;
+                //poeng--;
                 forrigeVarRett = false;
                 btnVelgTall.style.backgroundColor = "darkgrey";
                 melding.style.color = "red";
@@ -403,9 +418,9 @@
                     inpTall3.style.color = "green";
                 }
             }
-            else if(event.key == ",") {
+            else if (event.key == ",") {
                 event.preventDefault();  //sørger for at det IKKE skrives "0".
-                hurtigTaster.style.display= "grid";
+                hurtigTaster.style.display = "grid";
             }
         }
 
