@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=input, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2 id="h2Text">1. Hvor mange strenger slår hammeren til de lyseste tonen i pianoet vårt på?</h1>
+        <br>
+        <h2 id="h2Text2">2. Hvor mange tenner har en vanlig tannlege? Tverrsummen!</h1>
+            <br>
+            <h2 id="h2Text3">3. Hvor mange ting står i vinduene i stua? Del på 5 og avrund opp til nærmeste heltall!
+                </h1>
+                <br>
+                <input placeholder="000" id="inpTall1" type="number" inputmode="decimal">
+                <script>
+                    var inpTall1 = document.getElementById("inpTall1");
+                    inpTall1.onchange = sjekkTall;
+
+                    function sjekkTall() {
+                        if (inpTall1.value == "356") {
+                            h2Text2.innerHTML = "";
+                            h2Text3.innerHTML = "";
+                            h2Text.innerHTML = "Du må gjennom katteluka, eller bare døra!";
+                        }
+                    }
+                </script>
+</body>
+
+</html>
