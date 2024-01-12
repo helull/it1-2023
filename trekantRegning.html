@@ -114,6 +114,10 @@
 
     <script>
         var poeng = 0;
+        if (localStorage.poeng) {
+            poeng = Number(localStorage.poeng);
+        }
+
         var pF = 10; //poengFaktor
         var deleModus = false;
         var desimalModus = false;
@@ -373,11 +377,13 @@
                 melding.style.color = "red";
                 melding.innerHTML = "...Feil...";
                 btnVelgTall.innerHTML = poeng + " poeng";
-                if (tallIBruk = 1) { inpTall1.value = ""; inpTall1.focus(); }
-                else if (tallIBruk = 2) { inpTall2.value = ""; inpTall2.focus(); }
-                else if (tallIBruk = 3) { inpTall3.value = ""; inpTall3.focus(); }
+                if (tallIBruk == 1) { inpTall1.value = ""; inpTall1.focus(); }
+                else if (tallIBruk == 2) { inpTall2.value = ""; inpTall2.focus(); }
+                else if (tallIBruk == 3) { inpTall3.value = ""; inpTall3.focus(); }
                 else { alert("Jøje oss - tallIBruk er: " + tallIBruk) }
             }
+            localStorage.poeng = poeng;
+
         }
 
         function finnFasit(t1, t2, t3) {
@@ -421,6 +427,11 @@
             else if (event.key == ",") {
                 event.preventDefault();  //sørger for at det IKKE skrives "0".
                 hurtigTaster.style.display = "grid";
+            }
+            else if (event.key == "s") {
+                event.preventDefault();  //sørger for at det IKKE skrives "0".
+                poeng = 0;
+                localStorage.poeng = 0;
             }
         }
 
