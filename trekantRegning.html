@@ -92,7 +92,12 @@
 
         @media only screen and (orientation:portrait) {
             input {
-                font-size: xxx-large;  
+                font-size: x-large;
+                color: brown;
+            }
+
+            #hurtigTaster {
+                display: grid;
             }
         }
     </style>
@@ -138,7 +143,9 @@
         var melding = document.getElementById("melding");
         var hurtigTaster = document.getElementById("hurtigTaster");
         var tallIBruk = 1;
-        var arrayTallIBruk = [inpTall1, inpTall2, inpTall3]
+        var arrayTallIBruk = [inpTall1, inpTall2, inpTall3];
+        var antallDesimaler = 1;
+        var kalkulatorModus = false;
 
         var btnVelgTall = document.getElementById("btnVelgTall");
 
@@ -149,8 +156,9 @@
             btnVelgTall.innerHTML = poeng + " poeng";
         }
 
-        setInterval(tellNed, 1000);
-        btnVelgTall.onclick = vurderTallene;
+        let tidtaker = setInterval(tellNed, 1000);
+        btnVelgTall.addEventListener("click",vurderTallene);
+        //btnVelgTall.onclick = vurderTallene;
         hurtigTaster.onclick = tastatur;
 
         function settOppHurtigTaster() {
@@ -252,9 +260,9 @@
             if (delemodus) {
 
                 //Hvis vi er i desimalmodus MÅ vi tvinge
-                //kun en desimal (.toFixed)
+                //sett opp antall desimaler (.toFixed)
                 if (desimalModus) {
-                    inpTall1.value = String(tall1.toFixed(1));
+                    inpTall1.value = String(tall1.toFixed(antallDesimaler));
                 }
 
                 //Ellers vil vi IKKE har noen desimal!
@@ -285,9 +293,11 @@
                 tallIBruk = 1;
             }
 
-            //Sett opp tastatur dersom vi er i portrettmodus
+            //Beregn hva som skal stå i hurtigtastene.
             settOppHurtigTaster();
-            hurtigTaster.style.display = "none";
+
+            //vis hurtigtastene
+//            hurtigTaster.style.display = "none";
 
         }
 
@@ -367,7 +377,7 @@
                 btnVelgTall.innerHTML = poeng + " poeng";
 
                 //reset dersom man svarer rett
-                setTimeout(resetInputVerdier, 500);
+                setTimeout(resetInputVerdier, 1000);
             }
 
             else {
@@ -398,49 +408,84 @@
             }
         }
 
-        document.addEventListener("keypress", skrivForslag);
-        function skrivForslag(event) {
+        document.addEventListener("keypress", tastaturHendelse);
+        function tastaturHendelse(event) {
             tall1 = Number(inpTall1.value);
             tall2 = Number(inpTall2.value);
             tall3 = Number(inpTall3.value);
             var fasit = -2;
 
-
-            if (event.key == "f") {
+            if (event.key === "Enter") { //kjør som om du klikket svar-knappen!
+                if (kalkulatorModus == false) {
+                    vurderTallene();
+                }
+            }
+            else if (event.key == "f") {  //Presenterer fasiten!
                 event.preventDefault();  //sørger for at det IKKE skrives "f".
-                if (inpTall1.value == "") {
+                if (inpTall1.value == "") { //Setter opp fasit i felt øverst i trekant.
                     fasit = finnFasit(tall1, tall2, tall3);
                     inpTall1.value = String(fasit);
                     inpTall1.style.color = "green";
                 }
-                else if (inpTall2.value == "") {
+                else if (inpTall2.value == "") {//Setter opp fasit i felt nede til venstre i
                     fasit = finnFasit(tall1, tall2, tall3)
-                    inpTall2.value = String(fasit.toFixed(1));
+                    inpTall2.value = String(fasit.toFixed(antallDesimaler));
                     inpTall2.style.color = "green";
                 }
-                else {  //inpTall3.value == ""
+                else {  //dvs. inpTall3.value == ""  //Setter opp fasit i felt nede til venstre i trekant
                     fasit = finnFasit(tall1, tall2, tall3)
-                    inpTall3.value = String(fasit.toFixed(1));
+                    inpTall3.value = String(fasit.toFixed(antallDesimaler));
                     inpTall3.style.color = "green";
                 }
             }
-            else if (event.key == ",") {
-                event.preventDefault();  //sørger for at det IKKE skrives "0".
+            else if (event.key == "h") {  //sett opp hurtigtaster
+                event.preventDefault();  //sørger for at det IKKE skrives "h".
                 hurtigTaster.style.display = "grid";
             }
-            else if (event.key == "s") {
-                event.preventDefault();  //sørger for at det IKKE skrives "0".
+            else if (event.key == "r") { //reset antall poeng til null!
+                event.preventDefault();  //sørger for at det IKKE skrives "r".
                 poeng = 0;
                 localStorage.poeng = 0;
             }
+            else if (event.key == "k") { //stop, bruk trekanten som kalkulator
+                event.preventDefault();  //sørger for at det IKKE skrives "k".
+                clearInterval(tidtaker);
+                inpTall1.value="";
+                inpTall2.value="";
+                inpTall3.value="";
+                kalkulatorModus = true;
+                btnVelgTall.removeEventListener("click",vurderTallene);
+                btnVelgTall.innerHTML = "Skriv tall to steder og trykk 'f'";
+            }
+            else if (event.key == "s") { //etter "k" - restart fra de poengene du hadde
+                event.preventDefault();  //sørger for at det IKKE skrives "k".
+                if (kalkulatorModus == true) { //OK, programmet "kommer fra" kalkulatormodus
+                    btnVelgTall.addEventListener("click",vurderTallene);
+                    tidtaker = setInterval(tellNed, 1000);
+                }
+                kalkulatorModus = false;
+            }
+            
+            else if (event.key == "+") {
+                event.preventDefault();  //sørger for at det IKKE skrives "+".
+                if (antallDesimaler < 3) {
+                    antallDesimaler ++;
+                }
+            }
+            else if (event.key == "-") {
+                event.preventDefault();  //sørger for at det IKKE skrives "+".
+                if (antallDesimaler > 1) {
+                    antallDesimaler --;
+                }
+            }
         }
 
-        document.addEventListener("keypress", enterTrykket);
+/*        document.addEventListener("keypress", enterTrykket);
         function enterTrykket(event) {
             if (event.key === "Enter") {
                 vurderTallene();
             }
-        }
+        } */
 
     </script>
 </body>
