@@ -157,7 +157,7 @@
         }
 
         let tidtaker = setInterval(tellNed, 1000);
-        btnVelgTall.addEventListener("click",vurderTallene);
+        //btnVelgTall.addEventListener("click",vurderTallene);
         //btnVelgTall.onclick = vurderTallene;
         hurtigTaster.onclick = tastatur;
 
@@ -203,7 +203,8 @@
         }
 
         function resetInputVerdier() {
-
+            btnVelgTall.addEventListener("click", vurderTallene);
+            document.addEventListener("keypress", tastaturHendelse);
             // Sett sort tekst i tilfelle den har vært grønn
             inpTall1.style.color = "black";
             inpTall2.style.color = "black";
@@ -257,7 +258,7 @@
                 }
             }
 
-            if (delemodus) {
+            if (deleModus) {
 
                 //Hvis vi er i desimalmodus MÅ vi tvinge
                 //sett opp antall desimaler (.toFixed)
@@ -302,11 +303,13 @@
         }
 
         function vurderTallene() {
+            btnVelgTall.removeEventListener("click",vurderTallene);
+            document.removeEventListener("keypress", tastaturHendelse);
             if ((poeng > deleModusGrense) && (forrigeVarRett)) {
-                delemodus = true;
+                deleModus = true;
             }
             else {
-                delemodus = false;
+                deleModus = false;
             }
 
             if ((poeng > desimalModusGrense) && (forrigeVarRett)) {
@@ -376,8 +379,8 @@
                 melding.innerHTML = melding_text[nr];
                 btnVelgTall.innerHTML = poeng + " poeng";
 
-                //reset dersom man svarer rett
-                setTimeout(resetInputVerdier, 1000);
+
+                //setTimeout(resetInputVerdier, 1000);
             }
 
             else {
@@ -392,6 +395,9 @@
                 else if (tallIBruk == 3) { inpTall3.value = ""; inpTall3.focus(); }
                 else { alert("Jøje oss - tallIBruk er: " + tallIBruk) }
             }
+
+            //blokker svarmuligheter og reset dersom man svarer rett
+            setTimeout(resetInputVerdier, 1000);
             localStorage.poeng = poeng;
 
         }
@@ -408,7 +414,7 @@
             }
         }
 
-        document.addEventListener("keypress", tastaturHendelse);
+        //document.addEventListener("keypress", tastaturHendelse);
         function tastaturHendelse(event) {
             tall1 = Number(inpTall1.value);
             tall2 = Number(inpTall2.value);
@@ -480,13 +486,8 @@
             }
         }
 
-/*        document.addEventListener("keypress", enterTrykket);
-        function enterTrykket(event) {
-            if (event.key === "Enter") {
-                vurderTallene();
-            }
-        } */
-
+        //play!! etter ett sekund 'ellerno'
+        setTimeout(resetInputVerdier, 1000);
     </script>
 </body>
 
