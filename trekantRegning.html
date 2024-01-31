@@ -156,7 +156,7 @@
         var arrayTallIBruk = [inpTall1, inpTall2, inpTall3];
         var antallDesimaler = 1;
         var kalkulatorModus = false;
-
+        var tidtaker;
         var btnVelgTall = document.getElementById("btnVelgTall");
 
         function tellNed() {
@@ -166,9 +166,6 @@
             btnVelgTall.innerHTML = poeng + " poeng";
         }
 
-        let tidtaker = setInterval(tellNed, nedTellingsIntervall);
-        //btnVelgTall.addEventListener("click",vurderTallene);
-        //btnVelgTall.onclick = vurderTallene;
         hurtigTaster.onclick = tastatur;
 
         function settOppHurtigTaster() {
@@ -235,6 +232,7 @@
             btnVelgTall.addEventListener("click", vurderTallene);
             document.addEventListener("keypress", tastaturHendelse);
         }
+
 
         function resetInputVerdier() {
 
@@ -568,8 +566,15 @@
             }
         }
 
-        //play!! etter ett sekund 'ellerno'
+        //start tidtakeren (litt forsinket aller første gang, derfor som egen funsjon)
+        function startTidtaker() {
+            tidtaker = setInterval(tellNed, nedTellingsIntervall);
+        }
+
+        //Play!! Etter ett sekund 'ellerno'
         setTimeout(resetInputVerdier, ventTilForsteSpm);
+        setTimeout(startTidtaker, ventTilForsteSpm);
+
     </script>
 </body>
 
