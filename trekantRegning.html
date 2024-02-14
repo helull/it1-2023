@@ -122,6 +122,10 @@
     <br>
     <div id="hurtigTaster">
     </div>
+    
+    <audio id="gladLyd">
+        <source src="gladLyd.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
         var poeng = 0;
@@ -161,6 +165,8 @@
         var kalkulatorModus = false;
         var tidtaker;
         var btnVelgTall = document.getElementById("btnVelgTall");
+
+        var gladLyd = document.getElementById("gladLyd");
 
         function tellNed() {
             if (poeng > 0) {
@@ -238,7 +244,6 @@
 
 
         function resetInputVerdier() {
-
             kobleInnLyttere();
 
             // Sett sort tekst i tilfelle den har vært grønn
@@ -362,6 +367,7 @@
             if ((poeng > ekspertModusGrenser[ekspertModusGrenseIndex]) && (ekspertModusGrenseIndex < ekspertModusGrenser.length - 1)) {
                 console.log("ekspertmodusGrense gjør at ekspertmodusGrenseIndex øker med 1")
                 ekspertModusGrenseIndex = ekspertModusGrenseIndex + 1;
+                gladLyd.play();
             }
 
             //Hvis forrige var feil, og ekspertmodus er OVER 1
@@ -392,10 +398,10 @@
                     "Du er en matematisk mester!",
                     "Du har virkelig satt deg inn i dette!",
                     "Du har gjort en strålende jobb!",
-                    "Du er en matte-genius!",
+                    "Du er en matte-geni!",
                     "Du har virkelig knekt koden her!",
                     "Du har en utmerket matematisk forståelse!",
-                    "Du har en flott evne til å løse matematiske problemer!",
+                    "Helt rått!",
                     "Du har virkelig gjort leksene dine godt!",
                     "Du har en flott matematisk intuisjon!",
                     "Du er en matematisk superhelt!",
@@ -408,7 +414,7 @@
                     "Du er en matematisk ekspert!",
                     "Du har virkelig forstått det matematiske språket!",
                     "Du har en flott matematisk evne!",
-                    "Du har virkelig gjort en god jobb med å løse denne oppgaven!",
+                    "Helt vanvittig!",
                     "Du har en flott matematisk tankegang!",
                     "Du har virkelig forstått det matematiske konseptet!",
                     "Bra!", "Fantastisk", "Supert!!", "Yes!!", "Jepp!", "Jadda!!!", "Fytti katta så bra!", "Genialt", "Hoho", "Einstein!", "Mattehue!", "Spør meg igjen da!", "Ah, lett!", "Lættis"]
