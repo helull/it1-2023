@@ -102,7 +102,8 @@
             }
 
             #hurtigTaster {
-                display: grid;
+                display:"none";
+                /*display: grid;*/
             }
         }
     </style>
@@ -122,15 +123,15 @@
     <br>
     <div id="hurtigTaster">
     </div>
-    
+
     <audio id="gladLyd">
-        <source src="gladLyd.mp3" type="audio/mpeg">
+        <source src="1.mp3" type="audio/mpeg">
     </audio>
 
     <script>
         var poeng = 0;
-        if (localStorage.trekantPoeng_v1) {
-            poeng = Number(localStorage.trekantPoeng_v1);
+        if (localStorage.trekantPoeng_v11) {
+            poeng = Number(localStorage.trekantPoeng_v11);
         }
 
         var pF = 10; //poengFaktor
@@ -142,8 +143,8 @@
         const desimalModusGrense = 50 * pF;
         const ekspertModusGrenser = [5 * pF, 10 * pF, 20 * pF, 30 * pF, 50 * pF, 60 * pF, 70 * pF];  //Må passe med antall valg i resetInputVerdier()
 
-        const ventTilForsteSpm = 3000;         //ventetid før neste spørsmål kommer
-        const ventTilNyttSpm = 1000;          //tid å vente til neste spm, i millisekunder
+        const ventTilForsteSpm = 2000;         //ventetid før neste spørsmål kommer
+        const ventTilNyttSpm = 500;          //tid å vente til neste spm, i millisekunder
         const nedTellingsIntervallMin = 200;  //minimum hastighet på "klokka" som går
         const nedTellingsIntervallMax = 2000; //max hastighet på "klokka" som går
         const nedTellingsIntervallStep = 100; //endringshastighet (ved + og -) på "klokka" som går
@@ -383,41 +384,29 @@
 
             //Brukeren har svart riktig
             if (Math.abs(tall1 - (tall2 * tall3)) < 0.01) {
+                if (poeng%100 == 0) {
+                    gladLyd.play();
+                }
                 forrigeVarRett = true;
                 btnVelgTall.style.backgroundColor = "lightgrey";
                 poeng = poeng + pF;
                 melding.style.color = "green";
                 melding_text = ["Fantastisk jobbet!",
-                    "Du er en matte-stjerne!",
-                    "Utrolig bra!",
-                    "Bra gjort!",
-                    "Du er virkelig flink i matte!",
-                    "Det var imponerende!",
-                    "Du har virkelig forstått dette!",
-                    "Du har en flott matematisk tankegang!",
-                    "Du er en matematisk mester!",
-                    "Du har virkelig satt deg inn i dette!",
-                    "Du har gjort en strålende jobb!",
-                    "Du er en matte-geni!",
-                    "Du har virkelig knekt koden her!",
-                    "Du har en utmerket matematisk forståelse!",
-                    "Helt rått!",
-                    "Du har virkelig gjort leksene dine godt!",
-                    "Du har en flott matematisk intuisjon!",
-                    "Du er en matematisk superhelt!",
-                    "Du har virkelig tatt tak i dette!",
-                    "Du har en flott matematisk logikk!",
-                    "Du har virkelig forstått matematikkens verden!",
-                    "Du har en flott matematisk kunnskap!",
-                    "Du har virkelig gjort en god jobb med dette!",
-                    "Du har en flott matematisk forståelse!",
-                    "Du er en matematisk ekspert!",
-                    "Du har virkelig forstått det matematiske språket!",
-                    "Du har en flott matematisk evne!",
-                    "Helt vanvittig!",
-                    "Du har en flott matematisk tankegang!",
-                    "Du har virkelig forstått det matematiske konseptet!",
-                    "Bra!", "Fantastisk", "Supert!!", "Yes!!", "Jepp!", "Jadda!!!", "Fytti katta så bra!", "Genialt", "Hoho", "Einstein!", "Mattehue!", "Spør meg igjen da!", "Ah, lett!", "Lættis"]
+                    "Bra!",
+                    "Fantastisk",
+                    "Supert!!",
+                    "Jess!!",
+                    "Jepp!",
+                    "Jadda!!!",
+                    "Fytti katta så bra!",
+                    "Genialt",
+                    "Hoho",
+                    "Einstein!",
+                    "Mattehue!",
+                    "Spør meg igjen da!",
+                    "Ah, lett!",
+                    "Lættis",
+                ]
                 var nr = Math.floor(Math.random() * melding_text.length);
                 melding.innerHTML = melding_text[nr];
                 btnVelgTall.innerHTML = poeng + " poeng";
@@ -425,7 +414,7 @@
                 // Finn nye tall i trekanten dersom man svarer rett
                 // og lagre poengene i localStorage
                 setTimeout(resetInputVerdier, ventTilNyttSpm);
-                localStorage.trekantPoeng_v1 = poeng;
+                localStorage.trekantPoeng_v11 = poeng;
             }
 
             //Brukeren gir feil svar
@@ -492,6 +481,13 @@
                 }
             }
 
+           //Sett opp egen lyd ("l"="lyd")  (FORSTÅR IKKE HVORFOR DETTE IKKE FUNGERER)
+           /* else if (event.key == "l") {  //forklar hvordan man setter egen lyd
+                event.preventDefault();  //sørger for at det IKKE skrives "h".
+                var filnavn = String(prompt("Hva heter lydfilen?")+".mp3");
+                gladLyd.innerHTML = "<source src="+ filnavn +" type='audio/mpeg'>"
+            } */
+
             //Sett opp hurtigtaster ("h"="hurtigtaster")
             else if (event.key == "h") {  //sett opp hurtigtaster
                 event.preventDefault();  //sørger for at det IKKE skrives "h".
@@ -509,7 +505,7 @@
                 event.preventDefault();  //sørger for at det IKKE skrives "r".
                 poeng = 0;
                 ekspertModusGrenseIndex = 0;
-                localStorage.trekantPoeng_v1 = 0;
+                localStorage.trekantPoeng_v11 = 0;
             }
 
             //stop, bruk trekanten som kalkulator
@@ -531,6 +527,7 @@
                 if (kalkulatorModus == true) { //OK, programmet "kommer fra" kalkulatormodus
                     btnVelgTall.addEventListener("click", vurderTallene);
                     tidtaker = setInterval(tellNed, nedTellingsIntervall);
+                    resetInputVerdier();
                 }
                 kalkulatorModus = false;
             }
