@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="no">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Georgia, serif;
+        }
+
+        #hoved {
+            text-align: center;
+            width: 60%;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: white;
+            border: 1px solid #cccccc;
+        }
+
+        h1,
+        h2 {
+            font-family: Arial, sans-serif;
+        }
+
+        img:hover {
+            cursor: pointer;
+        }
+
+        img {
+            border: 10px;
+            border-color: white;
+            border-style: solid;
+        }
+
+        button {
+            visibility: visible;
+            font-size: larger;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="hoved">
+        <h1>Monty Hall</h1>
+        <p id="txtInfo"></p>
+        <img id="dor1" data-valg="0" src="dor_1.png" width="164" height="146" alt="Dør">
+        <img id="dor2" data-valg="1" src="dor_2.png" width="164" height="146" alt="Dør">
+        <img id="dor3" data-valg="2" src="dor_3.png" width="164" height="146" alt="Dør">
+        <br>
+        <button disabled=true id="btnAvslor">Avslør en annen dør!</button>
+        <button disabled=true id="btnFinale">Åpne alle dørene</button>
+        <br>
+        <br>
+        <button id="btnRestart">Nytt forsøk!</button>
+        <br>
+        <p id="txtResultat"></p>
+    </div>
+    <script>
+
+        // Henter bildeelementene
+        let dorbilderEl = document.querySelectorAll("img");
+        let btnAvslor = document.getElementById("btnAvslor");
+        let btnFinale = document.getElementById("btnFinale");
+        let btnRestart = document.getElementById("btnRestart");
+        let txtInfo = document.getElementById("txtInfo");
+        let txtResultat = document.getElementById("txtResultat");
+
+        let bildeArray;
+        let deltakerValg;
+        let skalAvslores;
+        let antallRiktige = 0;
+        let antallFeil = 0;
+
+        btnAvslor.addEventListener("click", avslorDor);
+        btnFinale.addEventListener("click", aapneAlle);
+        btnRestart.addEventListener("click", reStart);
+
+        function reStart() {
+            //Setter på geiter på de synlige dørene
+            for (let i = 0; i < dorbilderEl.length; i++) {
+                dorbilderEl[i].src = "dor_"+ (i+1) +".png";         // Sett på dør-bilder.
+                dorbilderEl[i].addEventListener("click", sjekkDor); //Legg til en lytter til hvert bilde
+                dorbilderEl[i].style.borderColor = "white";         //Ta bort rammene
+            }
+
+            //Legger bilen tilfeldig på plass 0, 1 eller 2.
+            var tilfeldig = Math.floor(Math.random() * 3)  //0, 1 eller 2
+            bildeArray = ["geit.png", "geit.png", "geit.png"];
+            bildeArray[tilfeldig] = "bil.png";
+            console.log(bildeArray);
+
+            btnRestart.style.visibility = "hidden";
+
+            //Valget som deltaker gjør! 0, 1 eller 2. I starten er denne -1
+            deltakerValg = -1;
+            skalAvslores = -1;
+            txtInfo.innerHTML = "Vinn en bil! Hvilken dør vil du velge?"
+        }
+
+        //Lets go!
+        reStart();
+
+        // Funksjon som markerer hvilken dør som ble trykket
+        function sjekkDor(e) {
+            let trykketDor = e.target;
+            console.log("Trykket dør er: " + trykketDor.id);
+
+            //Sørg for at rammen alltid er hvit på alle andre enn den bruker velger
+            for (let i = 0; i < dorbilderEl.length; i++) {
+                dorbilderEl[i].style.borderColor = "white";
+            }
+            trykketDor.style.borderColor = "blue";
+
+            //Vis programleders knapp hvis vi er på starten av programmet
+            if (skalAvslores == -1) {
+                btnAvslor.disabled = false;
+                txtInfo.innerHTML = "Trykk 'Avslør en annen dør'";
+            }
+
+            deltakerValg = Number(trykketDor.getAttribute("data-valg"));
+
+            // Går gjennom alle bildene og fjerner lytter på alle
+            for (let i = 0; i < dorbilderEl.length; i++) {
+                dorbilderEl[i].removeEventListener("click", sjekkDor);
+            }
+
+            if (skalAvslores != -1) {
+                for (let i = 0; i < dorbilderEl.length; i++) {
+                    dorbilderEl[i].addEventListener("click", sjekkDor);
+                }
+                dorbilderEl[skalAvslores].removeEventListener("click", sjekkDor);
+            }
+        }
+
+        function avslorDor() {
+            console.log("deltakervalg er" + deltakerValg);
+            if (deltakerValg == 0) {
+                if (bildeArray[0] == "bil.png") {
+                    skalAvslores = Math.floor(Math.random() * 2 + 1);
+                }
+                else if (bildeArray[1] == "bil.png") {
+                    skalAvslores = 2;
+                }
+                else {
+                    skalAvslores = 1;
+                }
+            }
+
+            else if (deltakerValg == 1) {
+                if (bildeArray[1] == "bil.png") {
+                    skalAvslores = Math.floor(Math.random() * 2); //0 eller 1
+                    if (skalAvslores == 1) {  //hvis 1, gjør om til 2
+                        skalAvslores = 2;     //nå er skalAvslores 0 eller 2! 
+                    }
+                }
+                else if (bildeArray[0] == "bil.png") {
+                    skalAvslores = 2;
+                }
+                else {
+                    skalAvslores = 0;
+                }
+            }
+
+            else { //if (deltakerValg == 2)
+                if (bildeArray[2] == "bil.png") {
+                    skalAvslores = Math.floor(Math.random() * 2);
+                }
+                else if (bildeArray[1] == "bil.png") {
+                    skalAvslores = 0;
+                }
+                else {
+                    skalAvslores = 1;
+                }
+            }
+            dorbilderEl[skalAvslores].src = bildeArray[skalAvslores];
+
+            //Sett på lyttere igjen, men fjern fra den døren som åpnes.
+            for (let i = 0; i < dorbilderEl.length; i++) {
+                dorbilderEl[i].addEventListener("click", sjekkDor);
+            }
+            dorbilderEl[skalAvslores].removeEventListener("click", sjekkDor);
+
+            //Vis programleders avslutningsknapp
+            btnAvslor.disabled = true;
+            btnFinale.disabled = false;
+
+            txtInfo.innerHTML = "Vil du bytte dør?";
+        }
+
+        function aapneAlle() {
+            for (let i = 0; i < dorbilderEl.length; i++) {
+                dorbilderEl[i].src = bildeArray[i];
+            }
+
+            if (bildeArray[deltakerValg] == "bil.png") {
+                antallRiktige++;
+                txtInfo.innerHTML = "Du vant!";
+                document.getElementById("hoved").style.backgroundColor = "lightgreen";
+            }
+
+            else {
+                antallFeil++;
+                txtInfo.innerHTML = "Du tapte!";
+                document.getElementById("hoved").style.backgroundColor = "lightsalmon";
+            }
+            txtResultat.innerHTML = "Riktige: " + antallRiktige + " - Feil: " + antallFeil;
+
+            //Fjern alle lyttere
+                for (let i = 0; i < dorbilderEl.length; i++) {
+                dorbilderEl[i].removeEventListener("click", sjekkDor);
+            }
+
+            btnFinale.disabled = true;
+            btnRestart.style.visibility = "visible";
+        }
+
+    </script>
+</body>
+
+</html>
