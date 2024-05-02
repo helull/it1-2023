@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Innskyting</title>
+	<style>
+    	.prikk {
+    		position: absolute;
+    		width: 10px;
+    		height: 10px;
+    		left: 5px;
+    		top: 5px;
+    		border-radius: 50%;
+    		background-color: burlywood;
+    	}
+    	
+    	div.skive {
+    		position: fixed;
+    		left: 0px;
+    		top: 5px;
+    		height: 163px;
+    		width: 150px;
+    		background-color:gray;
+    		background-image:url(blink.jpg);
+    		background-repeat:no-repeat;
+    	}
+	</style>
+
+</head>
+<body>
+	<!-- Setter inn et tomt div-element.  Dette er egentlig "Skyteskiva" -->
+	<div class="skive"></div>
+
+	<!--  Kopiert fra Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+	<script>
+       var config = {
+	      apiKey: "AIzaSyCA2aMMKYpIyeOBmDVXTycn5gSLC5fB63Y",
+          authDomain: "twitt-2.firebaseapp.com",
+          databaseURL: "https://twitt-2.firebaseio.com",
+          projectId: "twitt-2",
+          storageBucket: "twitt-2.appspot.com",
+          messagingSenderId: "354150068714"
+  	   };
+  	   firebase.initializeApp(config);
+    </script>
+
+    <script>
+    	var tekstDatabase = firebase.database();
+    	var koordinater = tekstDatabase.ref("koordinater");  
+
+		//Denne funksjonen kjøres når bruker klikker i dokumentet
+		function leggKoordinaterIFirebase (evt) {
+    		koordinater.push({x:evt.clientX - 5, y:evt.clientY - 5})
+    	}
+		document.addEventListener("click", leggKoordinaterIFirebase);
+
+		//Denne funksjonen LAGER HTML-elementet som inneholder en prikk	
+    	function visPunktet(snapshot) {
+    		var prikkdata = snapshot.val();
+    		var prikk = document.createElement("div");
+    		prikk.className = "prikk";
+    		prikk.style.left = prikkdata.x + "px";
+    		prikk.style.top = prikkdata.y + "px";
+    		document.body.appendChild(prikk);
+		};
+	    koordinater.on("child_added", visPunktet);
+
+	</script>
+</body>
+</html>
