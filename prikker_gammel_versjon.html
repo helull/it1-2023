@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Innskyting</title>
+	<style>
+	body {
+			background-image:url(blink.jpg);
+			background-repeat:no-repeat;
+	}
+	.prikk {
+		position: absolute;
+		width: 10px;
+		height: 10px;
+		left: 5px;
+		top: 5px;
+		border-radius: 50%;
+		background-color: burlywood;
+	}
+	
+	div.skive1 {
+		position: fixed;
+		left: 0px;
+		top: 5px;
+		height: 163px;
+		width: 150px;
+		background-color:gray;
+		background-image:url(blink.jpg);
+		background-repeat:no-repeat;
+	}
+	
+	div.skive2 {
+		position: fixed;
+		left: 150px;
+		top: 5px;
+		height: 163px;
+		width: 150px;
+		background-color:gray;
+		background-image:url(blink.jpg);
+		background-repeat:no-repeat;
+	}
+	div.skive3 {
+		position: fixed;
+		left: 300px;
+		top: 5px;
+		height: 163px;
+		width: 150px;
+		background-color:gray;
+		background-image:url(blink.jpg);
+		background-repeat:no-repeat;
+	}
+	div.skive4 {
+		position: fixed;
+		left: 450px;
+		top: 5px;
+		height: 163px;
+		width: 150px;
+		background-color:gray;
+		background-image:url(blink.jpg);
+		background-repeat:no-repeat;
+	}
+
+	div.skive5 {
+		position: fixed;
+		left: 0px;
+		top: 170px;
+		height: 163px;
+		width: 150px;
+		background-color:gray;
+		background-image:url(blink.jpg);
+		background-repeat:no-repeat;
+	}
+
+	div.skive6 {
+		position: fixed;
+		left: 150px;
+		top: 170px;
+		height: 163px;
+		width: 150px;
+		background-color:gray;
+		background-image:url(blink.jpg);
+		background-repeat:no-repeat;
+	}
+	div.skive7 {
+		position: fixed;
+		left: 300px;
+		top: 170px;
+		height: 163px;
+		width: 150px;
+		background-color:gray;
+		background-image:url(blink.jpg);
+		background-repeat:no-repeat;
+	}
+	div.skive8 {
+		position: fixed;
+		left: 450px;
+		top: 170px;
+		height: 163px;
+		width: 150px;
+		background-color:gray;
+		background-image:url(blink.jpg);
+		background-repeat:no-repeat;
+	}
+
+	div.navneplassering {
+		position: relative;
+		left:20px;
+		top: 121px;
+	}
+	</style>
+
+</head>
+<body>
+
+	<div class="skive1">
+		<input id="nullstill1" type="button" value="Tøm" style="height:12px;font-size:5pt;">
+		<div class="navneplassering">
+			<input id="navn1" type="text" size="10">
+		</div>
+	</div>
+	
+	<div class="skive2">
+		<input id="nullstill2" type="button" value="Tøm" style="height:12px;font-size:5pt;">
+		<div class="navneplassering">
+			<input id="navn2" type="text" size="10">
+		</div>
+	</div>
+
+	<div class="skive3">
+		<input id="nullstill3" type="button" value="Tøm" style="height:12px;font-size:5pt;">
+		<div class="navneplassering">
+			<input id="navn3" type="text" size="10">
+		</div>
+	</div>
+	
+	<div class="skive4">
+		<input id="nullstill4" type="button" value="Tøm" style="height:12px;font-size:5pt;">
+		<div class="navneplassering">
+			<input id="navn4" type="text" size="10">
+		</div>
+	</div>
+
+	<div class="skive5">
+		<input id="nullstill5" type="button" value="Tøm" style="height:12px;font-size:5pt;">
+		<div class="navneplassering">
+			<input id="navn5" type="text" size="10">
+		</div>
+	</div>
+
+	<div class="skive6">
+		<input id="nullstill6" type="button" value="Tøm" style="height:12px;font-size:5pt;">
+		<div class="navneplassering">
+			<input id="navn6" type="text" size="10">
+		</div>
+	</div>
+	<div class="skive7">
+		<input id="nullstill7" type="button" value="Tøm" style="height:12px;font-size:5pt;">
+		<div class="navneplassering">
+			<input id="navn7" type="text" size="10">
+		</div>
+	</div>
+	<div class="skive8">
+		<input id="nullstill8" type="button" value="Tøm" style="height:12px;font-size:5pt;">
+		<div class="navneplassering">
+			<input id="navn8" type="text" size="10">
+		</div>
+	</div>
+	
+    <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+
+    <script>
+	var nullstill1 = document.getElementById("nullstill1");
+	var nullstill2 = document.getElementById("nullstill2");
+	var nullstill3 = document.getElementById("nullstill3");
+	var nullstill4 = document.getElementById("nullstill4");
+	var nullstill5 = document.getElementById("nullstill5");
+	var nullstill6 = document.getElementById("nullstill6");
+	var nullstill7 = document.getElementById("nullstill7");
+	var nullstill8 = document.getElementById("nullstill8");	
+
+	var skive1tab = new Firebase("https://nettverkhelge.firebaseio.com/helge/skive1tab");
+	var skive2tab = new Firebase("https://nettverkhelge.firebaseio.com/helge/skive2tab");
+	var skive3tab = new Firebase("https://nettverkhelge.firebaseio.com/helge/skive3tab");
+	var skive4tab = new Firebase("https://nettverkhelge.firebaseio.com/helge/skive4tab");
+	var skive5tab = new Firebase("https://nettverkhelge.firebaseio.com/helge/skive5tab");
+	var skive6tab = new Firebase("https://nettverkhelge.firebaseio.com/helge/skive6tab");
+	var skive7tab = new Firebase("https://nettverkhelge.firebaseio.com/helge/skive7tab");
+	var skive8tab = new Firebase("https://nettverkhelge.firebaseio.com/helge/skive8tab");
+	
+	var ny = false;
+
+	navn8.onmouseup=function(){
+			skive8tab.push({navn:navn8.value})
+			ny = true;
+		};
+
+		
+	nullstill1.onmouseup=function(){
+			skive1tab.remove();
+			location.reload();
+			ny = true;
+		};
+
+	nullstill2.onmouseup=function(){
+			skive2tab.remove();
+			location.reload();
+			ny = true;
+		};
+	nullstill3.onmouseup=function(){
+			skive3tab.remove();
+			location.reload();
+			ny = true;
+		};		
+
+	nullstill4.onmouseup=function(){
+			skive4tab.remove();
+			location.reload();
+			ny = true;
+		};
+	nullstill5.onmouseup=function(){
+			skive5tab.remove();
+			location.reload();
+			ny = true;
+		};		
+	nullstill6.onmouseup=function(){
+			skive6tab.remove();
+			location.reload();
+			ny = true;
+		};		
+	nullstill7.onmouseup=function(){
+			skive7tab.remove();
+			location.reload();
+			ny = true;
+		};		
+	nullstill8.onmouseup=function(){
+			skive8tab.remove();
+			location.reload();
+			ny = true;
+		};				
+		
+	document.onclick = function(evt){
+		if (ny == false) {
+			if (evt.clientX > 140) {
+				if (evt.clientX > 290){
+					if (evt.clientX > 440){
+						if (evt.clientY > 160){
+							skive8tab.push({x:evt.clientX - 5, y:evt.clientY - 5})
+						}
+						else {
+							skive4tab.push({x:evt.clientX - 5, y:evt.clientY - 5})
+						}	
+					}
+					else if (evt.clientY > 160){
+						skive7tab.push({x:evt.clientX - 5, y:evt.clientY - 5})
+					}
+					else {
+						skive3tab.push({x:evt.clientX - 5, y:evt.clientY - 5})
+					}
+				}
+				else if (evt.clientY > 160){
+					skive6tab.push({x:evt.clientX - 5, y:evt.clientY - 5})
+				}
+				else {
+					skive2tab.push({x:evt.clientX - 5, y:evt.clientY - 5})
+				}
+			}
+			else if (evt.clientY > 160){
+				skive5tab.push({x:evt.clientX - 5,y:evt.clientY - 5})
+			}
+			else {
+				skive1tab.push({x:evt.clientX - 5,y:evt.clientY - 5})
+			}	
+		} else
+		ny = false;
+	}
+	
+	skive1tab.on("child_added", function(snapshot) {
+		var prikkdata = snapshot.val();
+		var prikk = document.createElement("div");
+		prikk.className = "prikk";
+		prikk.style.left = prikkdata.x + "px";
+		prikk.style.top = prikkdata.y + "px";
+		document.body.appendChild(prikk);
+	})
+	
+	skive2tab.on("child_added", function(snapshot) {
+		var prikkdata = snapshot.val();
+		var prikk = document.createElement("div");
+		prikk.className = "prikk";
+		prikk.style.left = prikkdata.x + "px";
+		prikk.style.top = prikkdata.y + "px";
+		document.body.appendChild(prikk);
+	})
+	skive3tab.on("child_added", function(snapshot) {
+		var prikkdata = snapshot.val();
+		var prikk = document.createElement("div");
+		prikk.className = "prikk";
+		prikk.style.left = prikkdata.x + "px";
+		prikk.style.top = prikkdata.y + "px";
+		document.body.appendChild(prikk);
+	})
+	skive4tab.on("child_added", function(snapshot) {
+		var prikkdata = snapshot.val();
+		var prikk = document.createElement("div");
+		prikk.className = "prikk";
+		prikk.style.left = prikkdata.x + "px";
+		prikk.style.top = prikkdata.y + "px";
+		document.body.appendChild(prikk);	
+	})
+	skive5tab.on("child_added", function(snapshot) {
+		var prikkdata = snapshot.val();
+		var prikk = document.createElement("div");
+		prikk.className = "prikk";
+		prikk.style.left = prikkdata.x + "px";
+		prikk.style.top = prikkdata.y + "px";
+		document.body.appendChild(prikk);
+	})
+	skive6tab.on("child_added", function(snapshot) {
+		var prikkdata = snapshot.val();
+		var prikk = document.createElement("div");
+		prikk.className = "prikk";
+		prikk.style.left = prikkdata.x + "px";
+		prikk.style.top = prikkdata.y + "px";
+		document.body.appendChild(prikk);
+	})
+	skive7tab.on("child_added", function(snapshot) {
+		var prikkdata = snapshot.val();
+		var prikk = document.createElement("div");
+		prikk.className = "prikk";
+		prikk.style.left = prikkdata.x + "px";
+		prikk.style.top = prikkdata.y + "px";
+		document.body.appendChild(prikk);
+	})
+	skive8tab.on("child_added", function(snapshot) {
+		var prikkdata = snapshot.val();
+		var prikk = document.createElement("div");
+		prikk.className = "prikk";
+		prikk.style.left = prikkdata.x + "px";
+		prikk.style.top = prikkdata.y + "px";
+		document.body.appendChild(prikk);
+		navn8.value = string(prikkdata.navn);
+	})	
+	</script>
+
+</body>
+
+</html>
