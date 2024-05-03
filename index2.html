@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+  <h1>Min huskeliste</h1>
+  <input type="text"> <button class="ok">Legg til</button>
+  <div id="hoved">
+    <h1>Ting å huske på!</h1>
+    <ul> </ul>
+  </div>
+
+  <script type="module">
+    // Lager variabler av eksisterende HTML-elementer
+    let inpNyTekst = document.querySelector("input");
+    let btnOK = document.querySelector("button");
+    let ulUnummerertListe = document.querySelector("ul");
+
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    import { getFirestore, query, collection, getDoc, getDocs, doc, addDoc, updateDoc, deleteDoc, onSnapshot, orderBy, where, limit } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDHA9jfvrve3OM1zxBZTVVGaRMtMJ_bzFM",
+      authDomain: "huskeliste-d5106.firebaseapp.com",
+      projectId: "huskeliste-d5106",
+      storageBucket: "huskeliste-d5106.appspot.com",
+      messagingSenderId: "52389862320",
+      appId: "1:52389862320:web:040dcbc03a9b73d5095475"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+
+    // Legger til lytter på knappen
+    btnOK.addEventListener("click", leggTilHuskepunkt);
+    async function leggTilHuskepunkt() {
+      await addDoc(collection(db, "huskeliste"), {   //Neste linjer: feltnavn og verdi! 
+        husketekst: inpNyTekst.value,
+        ferdig: false
+      });
+    }
+
+    // Spørring som angir hva vi vil hente fra "huskeliste" fra databasen
+    // NB "huskeliste" er navnet på vår "samling" eller "collection":
+    const q = query(collection(db, "huskeliste"));
+
+    // Oppdaterer ved endringer OG ved oppstart
+    const oppdater = onSnapshot(q, (huskeDokumenter) => {
+      // Tømmer listeelementet (<div>-elementet der huskelisten lages)
+      ulUnummerertListe.innerHTML = "";
+
+      huskeDokumenter.forEach((huskeDokument) => {
+        visHuskeElement(huskeDokument);
+      });
+    });
+
+    // Funksjon som viser hvert element
+    function visHuskeElement(dokument) {
+      // Lager et <li>-element
+      let liListePunkt = document.createElement("li");
+
+      // Legger til huskelisteteksten i <li>-elementet
+      liListePunkt.innerHTML = dokument.data().husketekst;
+
+      // Legger til <li>-elementet i <ul>-elementet
+      ulUnummerertListe.appendChild(liListePunkt);
+    }
+
+    //Slett et bestemt dokument
+    await deleteDoc(doc(db, "huskeliste", "VJpKD07jtedGhUFjGHJU"));
+
+  </script>
+</body>
+
+</html>
