@@ -2,246 +2,343 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8">
-  <title>Livssimulator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Livssimulator 2026</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 700px;
       margin: 40px auto;
+      padding: 20px;
       text-align: center;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+    .knapp-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 30px;
     }
     button {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 12px;
+      padding: 15px 20px;
       font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
       cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    button:not(:disabled) {
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      color: white;
+    }
+    button:not(:disabled):hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     }
     button:disabled {
-      background-color: #ccc;
+      background: #bdc3c7;
+      color: #7f8c8d;
       cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
     }
     #output {
+      background: white;
       margin-top: 30px;
-      min-height: 60px;
-      border: 1px solid #ddd;
+      min-height: 80px;
+      border-radius: 15px;
+      padding: 25px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #2c3e50;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      border-left: 5px solid #3498db;
+    }
+    .instruksjon {
+      background: rgba(255,255,255,0.8);
       padding: 15px;
-      font-size: 18px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      color: #34495e;
     }
   </style>
 </head>
 <body>
-  <h1>Livshendelser</h1>
+  <h1>🎲 Livssimulator 2026</h1>
+  
+  <div class="instruksjon">
+    Trykk på én knapp om gangen. Hver knapp kan bare brukes én gang.
+  </div>
 
-  <button id="btn1">VELG ARBEIDSSITUASJON</button>
-  <button id="btn2">LIVETS LOTTERI</button>
-  <button id="btn3">UFORUTSETT UTGIFT</button>
-  <button id="btn4">LITE GJENNOMTENKT UTGIFT</button>
+  <div class="knapp-container">
+    <button id="btn1">🏢 VELG ARBEIDSSITUASJON</button>
+    <button id="btn2">🎰 LIVETS LOTTERI</button>
+    <button id="btn3">⚠️ UFORUTSETT UTGIFT</button>
+    <button id="btn4">💸 LITE GJENNOMTENKT UTGIFT</button>
+  </div>
 
-  <div id="output">Trykk på en knapp for å se hva som skjer...</div>
-
-  <script>
-  const output = document.getElementById('output');
-
-  // Knapp 1: bare arbeidssituasjon / oppgave, ingen penger
-  const arbeidssituasjoner = [
-    'Du blir lærer på en ungdomsskole.',
-    'Du blir sykepleier på et sykehus.',
-    'Du starter som lærling i bygg og anlegg.',
-    'Du jobber som barnehageassistent.',
-    'Du blir butikksjef i en dagligvarebutikk.',
-    'Du jobber som kundebehandler på et kundesenter.',
-    'Du blir IT-konsulent i et lite firma.',
-    'Du begynner som programutvikler i et oppstartselskap.',
-    'Du blir prosjektleder i en mellomstor bedrift.',
-    'Du jobber som renholder på en skole.',
-    'Du blir kokk på en restaurant.',
-    'Du blir servitør på en kafé.',
-    'Du jobber som journalist i en lokalavis.',
-    'Du blir grafisk designer i et reklamebyrå.',
-    'Du blir økonomikonsulent i en bank.',
-    'Du starter egen frisørsalong.',
-    'Du driver egen nettbutikk hjemmefra.',
-    'Du blir daglig leder i en frivillig organisasjon.',
-    'Du jobber som miljøarbeider i en kommune.',
-    'Du blir ingeniør i et konsulentselskap.',
-    'Du jobber som elektriker i et lite firma.',
-    'Du blir rørlegger i en familiebedrift.',
-    'Du jobber som transportarbeider og kjører varebil.',
-    'Du blir bussjåfør i kollektivtrafikken.',
-    'Du jobber nattevakt på et sykehjem.',
-    'Du blir forsker ved et universitet.',
-    'Du underviser som vikar på en barneskole.',
-    'Du blir yogainstruktør på deltid.',
-    'Du jobber som personlig trener på et treningssenter.',
-    'Du blir guide for turister i Oslo.',
-    'Du jobber som resepsjonist på et hotell.',
-    'Du blir HR-rådgiver i en stor bedrift.',
-    'Du jobber som konsulent innen bærekraft.',
-    'Du blir bonde på en gård.',
-    'Du jobber sesongbasert i fiskerinæringen.',
-    'Du blir kunstner og jobber med egne prosjekter.',
-    'Du jobber som musiker i et band.',
-    'Du blir bibliotekar på det lokale biblioteket.',
-    'Du jobber som veileder på NAV.',
-    'Du blir logistikkmedarbeider på et lager.',
-    'Du jobber som bilmekaniker på et verksted.',
-    'Du blir sikkerhetsvakt på et kjøpesenter.',
-    'Du jobber som butikkmedarbeider i en klesbutikk.',
-    'Du blir barista på en kaffebar.',
-    'Du jobber som dataanalytiker i et forsikringsselskap.',
-    'Du blir apputvikler i et internasjonalt team.',
-    'Du jobber som oversetter på frilansbasis.',
-    'Du blir fotograf for bryllup og arrangementer.',
-    'Du jobber som sosionom i kommunen.',
-    'Du blir psykolog i en privat praksis.',
-    'Du jobber som rådgiver i videregående skole.'
-  ];
-
-  document.getElementById('btn1').addEventListener('click', function () {
-    const idx = Math.floor(Math.random() * arbeidssituasjoner.length);
-    output.textContent = arbeidssituasjoner[idx];
-    this.disabled = true;
-  });
-
-  // Knapp 2: LIVETS LOTTERI – inntekter (konkrete beløp/prosent)
-  const inntekter = [
-    'Du vinner 500 kroner i skrapelodd.',
-    'Du vinner 1 000 kroner i bingo.',
-    'Du vinner 2 500 kroner i et lokalt lotteri.',
-    'Du vinner 5 000 kroner i tipping.',
-    'Du vinner 10 000 kroner i lotto.',
-    'Du vinner 25 000 kroner i et nasjonalt lotteri.',
-    'Du vinner 50 000 kroner i et lotteri på jobben.',
-    'Du vinner 100 000 kroner i pengespill.',
-    'Du vinner 500 000 kroner i lotto.',
-    'Du vinner 1 000 000 kroner i et lotteri.',
-    'Du får lønnsøkning på 2 %.',
-    'Du får lønnsøkning på 3 %. ',
-    'Du får lønnsøkning på 5 %.',
-    'Du får lønnsøkning på 7 %. ',
-    'Du får lønnsøkning på 10 %.',
-    'Du får bonus på 3 000 kroner.',
-    'Du får bonus på 5 000 kroner.',
-    'Du får bonus på 10 000 kroner.',
-    'Du får bonus på 20 000 kroner.',
-    'Du får bonus på 50 000 kroner.',
-    'Skatteoppgjøret gir deg 1 500 kroner tilbake.',
-    'Skatteoppgjøret gir deg 3 000 kroner tilbake.',
-    'Skatteoppgjøret gir deg 7 500 kroner tilbake.',
-    'Skatteoppgjøret gir deg 12 000 kroner tilbake.',
-    'Skatteoppgjøret gir deg 20 000 kroner tilbake.',
-    'Du får 2 000 kroner i bursdagsgaver.',
-    'Du får 5 000 kroner i julebonus fra jobben.',
-    'Du får 8 000 kroner igjen etter å ha solgt gamle ting.',
-    'Du får 15 000 kroner i arv.',
-    'Du får 50 000 kroner i arv.',
-    'Du får 200 000 kroner i arv.',
-    'Du selger en gammel bil og får 30 000 kroner.',
-    'Du selger kamera og utstyr og får 7 000 kroner.',
-    'Du får 1 000 kroner i tilbakebetaling fra strømleverandøren.',
-    'Du får 3 500 kroner i tilbakebetalt forsikring.',
-    'Du får 2 000 kroner i støtte til kurs.',
-    'Du får 10 000 kroner i støtte til videreutdanning.',
-    'Du tjener 500 kroner på en ekstrajobb en kveld.',
-    'Du tjener 2 000 kroner på en helgejobb.',
-    'Du tjener 4 000 kroner på frilansoppdrag.',
-    'Du tjener 8 000 kroner på prosjektarbeid.',
-    'Du tjener 15 000 kroner på en større frilansjobb.',
-    'Investeringene dine gir 2 % avkastning i år.',
-    'Investeringene dine gir 5 % avkastning i år.',
-    'Investeringene dine gir 8 % avkastning i år.',
-    'Investeringene dine gir 12 % avkastning i år.',
-    'Investeringene dine gir 20 % avkastning i år.',
-    'Du får 1 200 kroner i bonuspoeng fra kredittkortet.',
-    'Du får 600 kroner tilbake på strømstøtte.',
-    'Du får 2 500 kroner i reiserefusjon.',
-    'Du får 900 kroner ekstra i barnetrygd etter justering.'
-  ];
-
-  document.getElementById('btn2').addEventListener('click', function () {
-    const idx = Math.floor(Math.random() * inntekter.length);
-    output.textContent = inntekter[idx];
-    this.disabled = true;
-  });
-
-  // Knapp 3: uforutsett utgift – konkrete beløp
-  const uforutsetteUtgifter = [
-    'Bilen må på verksted: du betaler 2 000 kroner.',
-    'Bilen må på verksted: du betaler 5 000 kroner.',
-    'Bilen må på verksted: du betaler 12 000 kroner.',
-    'Bilen må på verksted: du betaler 25 000 kroner.',
-    'Du får parkeringsbot på 900 kroner.',
-    'Du får fartsbot på 3 500 kroner.',
-    'Du må betale egenandel på forsikringen: 2 000 kroner.',
-    'Du må betale egenandel på forsikringen: 4 000 kroner.',
-    'Tannlegen finner et hull: du betaler 1 500 kroner.',
-    'Tannbehandling blir dyrere enn ventet: 6 000 kroner.',
-    'Vaskemaskinen ryker: du betaler 4 500 kroner for ny.',
-    'Kjøleskapet går i stykker: du betaler 6 000 kroner.',
-    'Mobilskjermen knuser: du betaler 2 000 kroner.',
-    'PC-en slutt
-
-
-<!DOCTYPE html>
-<html lang="no">
-<head>
-  <meta charset="UTF-8">
-  <title>Livssimulator</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 40px auto;
-      text-align: center;
-    }
-    button {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 12px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-    #output {
-      margin-top: 30px;
-      min-height: 60px;
-      border: 1px solid #ddd;
-      padding: 15px;
-      font-size: 18px;
-    }
-  </style>
-</head>
-<body>
-  <h1>Livshendelser</h1>
-
-  <button id="btn1">VELG ARBEIDSSITUASJON</button>
-  <button id="btn2">LIVETS LOTTERI</button>
-  <button id="btn3">UFORUTSETT UTGIFT</button>
-  <button id="btn4">LITE GJENNOMTENKT UTGIFT</button>
-
-  <div id="output">Trykk på en knapp for å se hva som skjer...</div>
+  <div id="output">Trykk på en knapp for å starte livet ditt...</div>
 
   <script>
     const output = document.getElementById('output');
 
-    // Knapp 1: fast tekst
-    document.getElementById('btn1').addEventListener('click', function () {
-      output.textContent = 'VELG ARBEIDSSITUASJON';
+    // Knapp 1: ARBEIDSSITUASJONER (50+ alternativer)
+    const arbeidssituasjoner = [
+      'Du blir lærer på en ungdomsskole.',
+      'Du blir sykepleier på medisinklinikken.',
+      'Du starter som lærling i snekkerfirma.',
+      'Du jobber som barnehageassistent.',
+      'Du blir butikksjef i Kiwi-butikk.',
+      'Du jobber som kundebehandler på callcenter.',
+      'Du blir IT-support i et lite firma.',
+      'Du begynner som juniorutvikler.',
+      'Du blir prosjektleder i byggbransjen.',
+      'Du jobber som renholder på videregående.',
+      'Du blir kokk på en lokal restaurant.',
+      'Du blir servitør på hipsterkafé.',
+      'Du jobber som reporter i lokalavisa.',
+      'Du blir grafisk designer i reklamebyrå.',
+      'Du blir bankrådgiver i SpareBank 1.',
+      'Du starter egen neglelakeringssalong.',
+      'Du driver dropshipping-nettbutikk.',
+      'Du blir daglig leder i Røde Kors.',
+      'Du jobber som renovasjonsarbeider.',
+      'Du blir sivilingeniør i oljesektoren.',
+      'Du jobber som elektriker på nybygg.',
+      'Du blir rørlegger i VVS-firma.',
+      'Du kjører varebil for Posten.',
+      'Du blir bussjåfør på Ruter.',
+      'Du jobber nattevakt på aldershjem.',
+      'Du blir dosent ved NTNU.',
+      'Du underviser som vikar på barneskole.',
+      'Du blir yogalærer på SATS.',
+      'Du jobber som PT på Elixia.',
+      'Du blir fjordcruise-guide.',
+      'Du jobber som resepsjonist på Thon Hotel.',
+      'Du blir HR-assistent i Equinor.',
+      'Du jobber med ESG-rapportering.',
+      'Du blir melkebonde på familiebruk.',
+      'Du jobber sesongfiske i Lofoten.',
+      'Du blir gallerikunstner i Oslo.',
+      'Du spiller fiolin i korps.',
+      'Du blir bibliotekar på Deichmanske.',
+      'Du jobber som NAV-veileder.',
+      'Du plukker varer på City Maersk.',
+      'Du reparerer biler på Bilia.',
+      'Du blir vaktsommel i butikk.',
+      'Du står i kasse på H&M.',
+      'Du blir barista på Espresso House.',
+      'Du analyserer data i If Skadeforsikring.',
+      'Du koder apper for Schibsted.',
+      'Du oversetter tekster for Microsoft.',
+      'Du fotograferer bryllup.',
+      'Du jobber som sosionom i bydel.',
+      'Du blir psykolog i DPS.',
+      'Du veileder elever på VGS.',
+      'Du driver pizzabakeri.',
+      'Du blir dykkeinstruktør.',
+      'Du jobber i sykkelverksted.'
+    ];
+
+    // Knapp 2: LIVETS LOTTERI (50+ inntekter)
+    const inntekter = [
+      'Du vinner 500 kr i Norsk Tipping.',
+      'Du vinner 1 200 kr i skrapelodd.',
+      'Du vinner 2 800 kr i bingo.',
+      'Du vinner 5 500 kr i V75.',
+      'Du vinner 12 000 kr i Lotto.',
+      'Du vinner 28 000 kr i Eurojackpot.',
+      'Du vinner 75 000 kr på jobblotteri.',
+      'Du vinner 150 000 kr i bedriftslotteri.',
+      'Du vinner 450 000 kr på Norsk Tipping.',
+      'Du vinner 1 200 000 kr i Lotto.',
+      'Du får 2,5% lønnsøkning.',
+      'Du får 4% lønnsøkning.',
+      'Du får 6,2% lønnsøkning.',
+      'Du får 8% lønnsøkning.',
+      'Du får 12% lønnsøkning.',
+      'Du får 3 500 kr bonus.',
+      'Du får 7 200 kr bonus.',
+      'Du får 15 000 kr bonus.',
+      'Du får 28 000 kr bonus.',
+      'Du får 65 000 kr bonus.',
+      'Skatteoppgjøret: +1 800 kr.',
+      'Skatteoppgjøret: +4 500 kr.',
+      'Skatteoppgjøret: +9 200 kr.',
+      'Skatteoppgjøret: +18 000 kr.',
+      'Skatteoppgjøret: +35 000 kr.',
+      'Bursdagsgave: 2 500 kr.',
+      'Julebonus: 6 800 kr.',
+      'Finn.no-salg: 12 000 kr.',
+      'Arv fra onkel: 25 000 kr.',
+      'Arv fra tante: 95 000 kr.',
+      'Arv fra besteforeldre: 350 000 kr.',
+      'Selger bil: +45 000 kr.',
+      'Selger gaming-PC: 18 000 kr.',
+      'Strømrefusjon: 2 200 kr.',
+      'Forsikringsrefusjon: 5 800 kr.',
+      'Stipend: 8 500 kr.',
+      'Videreutdanningstilskudd: 22 000 kr.',
+      'Ekstrajobb kveld: 850 kr.',
+      'Helgejobb: 3 200 kr.',
+      'Frilansdesign: 9 500 kr.',
+      'Prosjektkoding: 28 000 kr.',
+      'Akksjeutbytte: +3,8%.',
+      'Akksjeutbytte: +7,2%.',
+      'Akksjeutbytte: +14,5%.',
+      'Akksjeutbytte: +22%.',
+      'Kredittkortpoeng: 1 800 kr.',
+      'Strømstøtte: 950 kr.',
+      'Reiserefusjon: 4 200 kr.',
+      'Barnetrygd-justering: +1 100 kr.',
+      'Leieinntekt: 8 000 kr.',
+      'Kortsalg gevinst: 15 500 kr.'
+    ];
+
+    // Knapp 3: UFORUTSETT UTGIFT (50+ alternativer)
+    const uforutsetteUtgifter = [
+      'Verkstedregning bil: 3 200 kr.',
+      'Verkstedregning bil: 8 500 kr.',
+      'Verkstedregning bil: 22 000 kr.',
+      'Verkstedregning bil: 48 000 kr.',
+      'Parkeringsbot: 920 kr.',
+      'Fartsbot: 4 100 kr.',
+      'Forsikring egenandel: 2 800 kr.',
+      'Forsikring egenandel: 6 500 kr.',
+      'Tannlege hull: 2 100 kr.',
+      'Tannbro: 12 500 kr.',
+      'Ny vaskemaskin: 7 200 kr.',
+      'Nytt kjøleskap: 11 000 kr.',
+      'Mobilskjerm: 3 400 kr.',
+      'Ny laptop: 18 500 kr.',
+      'Veterinær akutt: 4 800 kr.',
+      'Dyreoperasjon: 25 000 kr.',
+      'Nøkkel+lås: 3 900 kr.',
+      'Strømregning sjokk: 2 700 kr.',
+      'Felleskostnad +15%: 1 200 kr/mnd.',
+      'Husleie +7%: 2 100 kr/mnd.',
+      'Boliglån +1,5pp: 3 800 kr/mnd.',
+      'Boliglån +3pp: 7 500 kr/mnd.',
+      'Barnehage +450 kr/mnd.',
+      'SFO +380 kr/mnd.',
+      'Bompenger +25%: 850 kr/mnd.',
+      'Togbillett tapt: 650 kr.',
+      'Flybillett ikke-ref: 3 200 kr.',
+      'Lege egenandel: 1 450 kr.',
+      'Fysio egenandel: 950 kr.',
+      'Sykkel stjålet: 5 800 kr.',
+      'Briller knust: 4 200 kr.',
+      'Vinterdekk: 8 500 kr.',
+      'Sommerdekk: 6 900 kr.',
+      'Regningsgebyr: 450 kr.',
+      'Doble gebyrer: 1 100 kr.',
+      'Skoleutstyr: 2 800 kr.',
+      'Barnaklær akutt: 3 200 kr.',
+      'Kontorstol: 2 900 kr.',
+      'Takrautskifting: 28 000 kr.',
+      'Badreparasjon: 65 000 kr.',
+      'Eiendomsskatt: 5 800 kr.',
+      'Årsavgift glemt: 2 200 kr.',
+      'Kommunale avgifter: 4 500 kr.',
+      'Telefon vannskade: 6 200 kr.',
+      'Sesongkort tapt: 2 900 kr.',
+      'Forsikring +12%: 1 400 kr.',
+      'Strømforbruk høyt: 3 400 kr.',
+      'Internett +25%: 320 kr/mnd.',
+      'Ny router: 2 100 kr.',
+      'EU-kontroll feil: 4 800 kr.',
+      'Aircondition service: 7 500 kr.'
+    ];
+
+    // Knapp 4: LITE GJENNOMTENKT (50+ alternativer)
+    const dummeUtgifter = [
+      'Kaffe hver dag x30: 1 500 kr.',
+      'Takeaway x3 uke: 1 200 kr.',
+      'Gadget Amazon: 2 100 kr.',
+      'Treningsutstyr: 3 400 kr.',
+      'Klær på salg: 2 500 kr.',
+      'Impulssko: 1 700 kr.',
+      'Spontanweekend: 5 800 kr.',
+      'Luksusweekend: 12 000 kr.',
+      'Mobilabo +250 kr/mnd.',
+      'Streaming +350 kr/mnd.',
+      'Nytt spill: 950 kr.',
+      'Nettbestilling småting: 850 kr.',
+      'Snacks uke: 650 kr.',
+      'Taxi i stedet buss: 1 400 kr.',
+      'Dyr gave: 3 500 kr.',
+      'Abo glemt: 399 kr.',
+      'Prøveabo auto: 299 kr.',
+      'Dekorasjoner: 1 200 kr.',
+      'Puter+tepper: 1 800 kr.',
+      'Ekstra AirPods: 1 500 kr.',
+      'Ny iPhone tidlig: 14 000 kr.',
+      'Ny TV unødvendig: 11 500 kr.',
+      'PS5 impuls: 7 200 kr.',
+      'Dyr jakke: 4 100 kr.',
+      'Smakeprodukter: 1 400 kr.',
+      'Gym medlemskap: 599 kr/mnd.',
+      'Middag ute x3: 2 100 kr.',
+      'Kino+snacks: 850 kr.',
+      'Foodora helg: 1 600 kr.',
+      'Hobbyutstyr: 3 200 kr.',
+      'Samlekort: 950 kr.',
+      'Brettspill: 800 kr.',
+      'Ekstra data: 450 kr.',
+      'Mobilspill: 750 kr.',
+      'Kurs aldri tatt: 4 200 kr.',
+      'Parkering: 550 kr.',
+      'Drinker byen: 1 100 kr.',
+      'Ny veske: 2 300 kr.',
+      'Møbler bytte: 9 500 kr.',
+      'Julenøyt: 1 400 kr.',
+      'Klær nett: 3 100 kr.',
+      'Lotto kuponger: 450 kr.',
+      'Ekstra skjerm: 3 500 kr.',
+      'App premium: 850 kr.',
+      'Festivalutstyr: 1 500 kr.',
+      'Ny sekk: 1 200 kr.',
+      'Lydbok abo: 249 kr/mnd.',
+      'Motebriller: 1 700 kr.',
+      'Kaffeutstyr: 650 kr.',
+      'Dagligvare levering: 400 kr.',
+      'Angrer gebyr: 1 400 kr.'
+    ];
+
+    // Event listeners
+    document.getElementById('btn1').addEventListener('click', function() {
+      const idx = Math.floor(Math.random() * arbeidssituasjoner.length);
+      output.textContent = arbeidssituasjoner[idx];
       this.disabled = true;
     });
 
-    // Knapp 2: tilfeldig inntektshendelse
-    const inntekter = [
-      'Du får lønnsøkning på 5 %.',
-      'Du vinner 10 000 kroner i lotto.',
-      'Du får bonus på jobben.',
-      'Skatteoppgjøret gir deg penger tilbake.',
+    document.getElementById('btn2').addEventListener('click', function() {
+      const idx = Math.floor(Math.random() * inntekter.length);
+      output.textContent = inntekter[idx];
+      this.disabled = true;
+    });
+
+    document.getElementById('btn3').addEventListener('click', function() {
+      const idx = Math.floor(Math.random() * uforutsetteUtgifter.length);
+      output.textContent = uforutsetteUtgifter[idx];
+      this.disabled = true;
+    });
+
+    document.getElementById('btn4').addEventListener('click', function() {
+      const idx = Math.floor(Math.random() * dummeUtgifter.length);
+      output.textContent = dummeUtgifter[idx];
+      this.disabled = true;
+    });
+  </script>
+</body>
+</html>      'Skatteoppgjøret gir deg penger tilbake.',
       'Du får arv fra en fjern slektning.'
     ];
 
