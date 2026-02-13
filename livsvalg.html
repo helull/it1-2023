@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <title>Livssimulator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    #output {
+      margin-top: 30px;
+      min-height: 60px;
+      border: 1px solid #ddd;
+      padding: 15px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Livshendelser</h1>
+
+  <button id="btn1">VELG ARBEIDSSITUASJON</button>
+  <button id="btn2">LIVETS LOTTERI</button>
+  <button id="btn3">UFORUTSETT UTGIFT</button>
+  <button id="btn4">LITE GJENNOMTENKT UTGIFT</button>
+
+  <div id="output">Trykk på en knapp for å se hva som skjer...</div>
+
+  <script>
+    const output = document.getElementById('output');
+
+    // Knapp 1: fast tekst
+    document.getElementById('btn1').addEventListener('click', function () {
+      output.textContent = 'VELG ARBEIDSSITUASJON';
+      this.disabled = true;
+    });
+
+    // Knapp 2: tilfeldig inntektshendelse
+    const inntekter = [
+      'Du får lønnsøkning på 5 %.',
+      'Du vinner 10 000 kroner i lotto.',
+      'Du får bonus på jobben.',
+      'Skatteoppgjøret gir deg penger tilbake.',
+      'Du får arv fra en fjern slektning.'
+    ];
+
+    document.getElementById('btn2').addEventListener('click', function () {
+      const idx = Math.floor(Math.random() * inntekter.length);
+      output.textContent = inntekter[idx];
+      this.disabled = true;
+    });
+
+    // Knapp 3: uforutsett utgift
+    const uforutsetteUtgifter = [
+      'Bilen ryker på EU-kontroll og må repareres.',
+      'Tannlegen finner et hull som må fikses.',
+      'Vaskemaskinen slutter å virke.',
+      'Du må akutt til veterinæren med kjæledyret.',
+      'Mobilen din knuser og må byttes.'
+    ];
+
+    document.getElementById('btn3').addEventListener('click', function () {
+      const idx = Math.floor(Math.random() * uforutsetteUtgifter.length);
+      output.textContent = uforutsetteUtgifter[idx];
+      this.disabled = true;
+    });
+
+    // Knapp 4: lite gjennomtenkt utgift
+    const dummeUtgifter = [
+      'Du kjøper en dyr gadget du nesten aldri bruker.',
+      'Du bestiller takeaway for tredje gang denne uka.',
+      'Du kjøper klær du egentlig ikke trenger.',
+      'Du tar en spontanweekend som sprenger budsjettet.',
+      'Du kjøper et treningsabonnement du aldri bruker.'
+    ];
+
+    document.getElementById('btn4').addEventListener('click', function () {
+      const idx = Math.floor(Math.random() * dummeUtgifter.length);
+      output.textContent = dummeUtgifter[idx];
+      this.disabled = true;
+    });
+  </script>
+</body>
+</html>
