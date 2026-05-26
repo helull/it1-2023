@@ -239,7 +239,7 @@
         }
 
         function kobleInnLyttere() {
-            btnVelgTall.addEventListener("click", vurderTallene);
+            //btnVelgTall.addEventListener("click", vurderTallene);
             document.addEventListener("keypress", tastaturHendelse);
         }
 
@@ -348,7 +348,7 @@
         }
 
         function vurderTallene() {
-            btnVelgTall.removeEventListener("click", vurderTallene);
+            //btnVelgTall.removeEventListener("click", vurderTallene); Fjernet 26.05.2026
             document.removeEventListener("keypress", tastaturHendelse);
             if ((poeng > deleModusGrense) && (forrigeVarRett)) {
                 deleModus = true;
