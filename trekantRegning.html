@@ -317,13 +317,13 @@
                 if (Math.random() > 0.5) {
                     inpTall2.value = String(tall2);
                     inpTall3.value = "";
-                    btn.addEventListener("click", () => {inpTall3.focus();}, { once: true });    //26.05.2026
+                    btnVelgTall.addEventListener("click", () => {inpTall3.focus();}, { once: true });    //26.05.2026
                     //inpTall3.focus();                                    
                     tallIBruk = 3;
                 }
                 else {
                     inpTall2.value = "";
-                    btn.addEventListener("click", () => {inpTall2.focus();}, { once: true });    //26.05.2026
+                    btnVelgTall.addEventListener("click", () => {inpTall2.focus();}, { once: true });    //26.05.2026
                     inpTall2.focus();
                     inpTall3.value = String(tall3);
                     tallIBruk = 2;
@@ -332,7 +332,7 @@
                 //Ikke i delemodus, dvs vi er i gangemodus    
             } else {
                 inpTall1.value = "";
-                btn.addEventListener("click", () => {inpTall1.focus();}, { once: true });    //26.05.2026
+                btnVelgTall.addEventListener("click", () => {inpTall1.focus();}, { once: true });    //26.05.2026
                 inpTall1.focus();
                 inpTall2.value = String(tall2);
                 inpTall3.value = String(tall3);
