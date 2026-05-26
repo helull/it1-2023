@@ -113,10 +113,10 @@
     <img src="Trekant.png" alt="Bilde av trekant">
     <div id="trekant">
         <div id="tomrom"></div>
-        <input inputmode="decimal" id="inpTall1" value="6">
+        <input inputmode="numeric" type="number" id="inpTall1" value="6">
         <div id="tomrom"></div>
-        <input inputmode="decimal" id="inpTall2" value="2">
-        <input inputmode="decimal" id="inpTall3" value="3">
+        <input inputmode="numeric" type="number" id="inpTall2" value="2">
+        <input inputmode="numeric" type="number" id="inpTall3" value="3">
     </div>
     <h3 id="melding"></h3>
     <button id="btnVelgTall">Trykk her ...</button>
@@ -317,11 +317,13 @@
                 if (Math.random() > 0.5) {
                     inpTall2.value = String(tall2);
                     inpTall3.value = "";
-                    inpTall3.focus();                                    
+                    btn.addEventListener("click", () => {inpTall3.focus();}, { once: true });    //26.05.2026
+                    //inpTall3.focus();                                    
                     tallIBruk = 3;
                 }
                 else {
                     inpTall2.value = "";
+                    btn.addEventListener("click", () => {inpTall2.focus();}, { once: true });    //26.05.2026
                     inpTall2.focus();
                     inpTall3.value = String(tall3);
                     tallIBruk = 2;
@@ -330,6 +332,7 @@
                 //Ikke i delemodus, dvs vi er i gangemodus    
             } else {
                 inpTall1.value = "";
+                btn.addEventListener("click", () => {inpTall1.focus();}, { once: true });    //26.05.2026
                 inpTall1.focus();
                 inpTall2.value = String(tall2);
                 inpTall3.value = String(tall3);
