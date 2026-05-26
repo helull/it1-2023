@@ -155,6 +155,7 @@
         var tall1 = 6;
         var tall2 = 2;
         var tall3 = 3;
+        var trekant = document.getElementById("trekant");  //Ny 26.05.2026
         var inpTall1 = document.getElementById("inpTall1");
         var inpTall2 = document.getElementById("inpTall2");
         var inpTall3 = document.getElementById("inpTall3");
@@ -317,12 +318,14 @@
                 if (Math.random() > 0.5) {
                     inpTall2.value = String(tall2);
                     inpTall3.value = "";
-                    inpTall3.focus();
+                    trekant.addEventListener("click", () => {inpTall3.focus();});  // Ny 26.05.2026
+                    //inpTall3.focus();                                         //fjernet 26.05.2026
                     tallIBruk = 3;
                 }
                 else {
                     inpTall2.value = "";
-                    inpTall2.focus();
+                    trekant.addEventListener("click", () => {inpTall2.focus();});  // Ny 26.05.2026
+                    //inpTall2.focus();
                     inpTall3.value = String(tall3);
                     tallIBruk = 2;
                 }
@@ -330,7 +333,8 @@
                 //Ikke i delemodus, dvs vi er i gangemodus    
             } else {
                 inpTall1.value = "";
-                inpTall1.focus();
+                trekant.addEventListener("click", () => {inpTall1.focus();});  // Ny 26.05.2026
+                //inpTall1.focus();
                 inpTall2.value = String(tall2);
                 inpTall3.value = String(tall3);
                 tallIBruk = 1;
