@@ -149,6 +149,7 @@
         const nedTellingsIntervallMax = 2000; //max hastighet på "klokka" som går
         const nedTellingsIntervallStep = 100; //endringshastighet (ved + og -) på "klokka" som går
         var  nedTellingsIntervall = 1000;     //hastighet på "klokka" som går, normalt 1000 milliSekunder.
+        var  oppstart = true;
 
         var ekspertModusGrenseIndex = 0;
         var forrigeVarRett = true;
@@ -173,7 +174,7 @@
             if (poeng > 0) {
                 poeng--;
             }
-            btnVelgTall.innerHTML = poeng + " poeng";
+            if(!oppstart) {btnVelgTall.innerHTML = poeng + " poeng";}
         }
 
         hurtigTaster.onclick = tastatur;
@@ -348,6 +349,7 @@
         }
 
         function vurderTallene() {
+            oppstart = false;  //trengs bare å gjøres en gang, pga at jeg vil at "Trykk her" skal bli stående til første svar er gitt!
             btnVelgTall.removeEventListener("click", vurderTallene);
             document.removeEventListener("keypress", tastaturHendelse);
             if ((poeng > deleModusGrense) && (forrigeVarRett)) {
