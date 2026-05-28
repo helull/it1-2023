@@ -381,9 +381,17 @@
                 }
             }
 
-            tall1 = Number(inpTall1.value);
+            let tall1Norm = inpTall1.value.replace(",",".");   // 28.05.2026
+            let tal21Norm = inpTall2.value.replace(",",".");
+            let tal31Norm = inpTall3.value.replace(",",".");
+
+            tall1 = Number(tall1Norm);
+            tall2 = Number(tall2Norm);
+            tall3 = Number(tall3Norm);
+            
+            /*tall1 = Number(inpTall1.value);
             tall2 = Number(inpTall2.value);
-            tall3 = Number(inpTall3.value);
+            tall3 = Number(inpTall3.value);*/
 
             //Brukeren har svart riktig
             if (Math.abs(tall1 - (tall2 * tall3)) < 0.01) {
