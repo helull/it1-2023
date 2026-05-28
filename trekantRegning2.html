@@ -191,7 +191,7 @@
             var tempEkspertModus = Number(evt.target.innerHTML);
 
             clearInterval(tidtaker);
-            tidtaker = setInterval(tellNed, 1000-(tempEkspertModus*100));
+            tidtaker = setInterval(tellNed, 1000+(tempEkspertModus*100));
             
             if (tempEkspertModus < 7) {
                 ekspertModusGrenseIndex = tempEkspertModus;
