@@ -30,7 +30,7 @@
         }
 
         #hurtigTaster {
-            display: grid;
+            display: none;
             width: 80vw;
             grid-template-columns: repeat(10, 1fr);
             grid-gap: 2px;
@@ -415,7 +415,11 @@
                 else if (tallIBruk == 3) { inpTall3.value = ""; inpTall3.focus(); }
                 else { alert("Jøje oss - tallIBruk er: " + tallIBruk) } */
             }
-
+            if (poeng > 100) {
+                btnVelgTall.innerHTML = ".level.";
+                hurtigTaster.style.display = "grid";
+            }
+            
             setTimeout(kobleInnLyttere, ventTilNyttSpm);
 
         }
