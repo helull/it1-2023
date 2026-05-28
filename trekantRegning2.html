@@ -195,22 +195,22 @@
 
         function settLevel(evt) {
             var tempEkspertModus = Number(evt.target.innerHTML);
-            if tempEkspertModus < 7 {
+            if (tempEkspertModus < 7) {
                 ekspertModusGrenseIndex = tempEkspertModus;
                 deleModusGrense = 25 * pF;
                 desimalModusGrense = 50 * pF;
             }           
-            else if tempEkspertModus == 7 {
+            else if (tempEkspertModus == 7) {
                 ekspertModusGrenseIndex = 6;
                 deleModusGrense = 5 * pF;
                 desimalModusGrense = 10 * pF;
             }
-            else if tempEkspertModus == 8 {
+            else if (tempEkspertModus == 8) {
                 ekspertModusGrenseIndex = 6;
                 deleModusGrense = 2 * pF;
                 desimalModusGrense = 5 * pF;
             }    
-            else if tempEkspertModus == 9 {
+            else if (tempEkspertModus == 9) {
                 ekspertModusGrenseIndex = 6;
                 deleModusGrense = 1 * pF;
                 desimalModusGrense = 1 * pF;
