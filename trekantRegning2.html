@@ -30,7 +30,7 @@
         }
 
         #hurtigTaster {
-            display: none;
+            display: grid;
             width: 80vw;
             grid-template-columns: repeat(10, 1fr);
             grid-gap: 2px;
@@ -96,14 +96,10 @@
         }
 
         @media only screen and (orientation:portrait) {
-            input {
-                font-size: x-large;
-                color: brown;
-            }
-
-            #hurtigTaster {
-                display:"none";
-                /*display: grid;*/
+                input {
+                    font-size: x-large;
+                    color: brown;
+                }
             }
         }
     </style>
@@ -177,9 +173,7 @@
             if(!oppstart) {btnVelgTall.innerHTML = poeng + " poeng";}
         }
 
-        //hurtigTaster.onclick = tastatur;
         hurtigTaster.onclick = settLevel;
-
 
         function settOppLeveltaster() {
             hurtigTaster.innerHTML = "";
