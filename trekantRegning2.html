@@ -193,6 +193,8 @@
             clearInterval(tidtaker);
             tidtaker = setInterval(tellNed, 1000+(tempEkspertModus*100));
             
+            btnVelgTall.innerHTML = "level "+ String(tempEkspertModus);
+
             if (tempEkspertModus < 7) {
                 ekspertModusGrenseIndex = tempEkspertModus;
                 deleModusGrense = 25 * pF;
