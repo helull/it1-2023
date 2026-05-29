@@ -329,6 +329,9 @@
 
         function popAktuellEkspertmodus(indeks, fraManuell) {
             if (!fraManuell && indeks == 6) {
+                //do nothing ->bør skrives om....
+            }
+            else{
                     settOppLeveltaster();
                     const spans = document.querySelectorAll("span");
                     spans[indeks].classList.add("blink");
