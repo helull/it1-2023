@@ -102,6 +102,16 @@
                 }
             }
         }
+        
+        .blink {
+          animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+          0%   { opacity: 1; color: red; }
+          50%  { opacity: 0; }
+          100% { opacity: 1; color: red; }
+        }
     </style>
 </head>
 
@@ -194,6 +204,7 @@
             tidtaker = setInterval(tellNed, 1000+(tempEkspertModus*100));
             
             btnVelgTall.innerHTML = "level "+ String(tempEkspertModus);
+            popAktuellEkspertmodus(tempEkspertModus);
 
             if (tempEkspertModus < 7) {
                 ekspertModusGrenseIndex = tempEkspertModus;
@@ -320,6 +331,12 @@
 
         }
 
+        function popAktuellEkspertmodus(indeks) {
+            const spans = document.querySelectorAll("span");
+            spans[indeks].classList.add("blink");
+
+        }
+        
         function vurderTallene() {
             oppstart = false;  //trengs bare å gjøres en gang, pga at jeg vil at "Trykk her" skal bli stående til første svar er gitt!
             btnVelgTall.removeEventListener("click", vurderTallene);
@@ -338,7 +355,8 @@
                 desimalModus = false;
             }
 
-            //Ekspertmodus bestemmer hvor tøffe oppgavene skal være            
+            //Ekspertmodus bestemmer hvor tøffe oppgavene skal være
+            popAktuellEkspertmodus(EksPertModusGrenseIndex);
             console.log("EksPertModusGrenseIndex er: " + ekspertModusGrenseIndex);
             console.log("poeng er" + poeng);
 
@@ -411,14 +429,9 @@
                 else if (tallIBruk == 3) { inpTall3.value = ""; btnVelgTall.addEventListener("click", () => {inpTall3.focus();}, { once: true }); inpTall3.focus(); }
                 else { alert("Jøje oss - tallIBruk er: " + tallIBruk) }
 
-                /* erstattet med det ovenfor 26.05.2026 for å funke på iPhone
-                if (tallIBruk == 1) { inpTall1.value = ""; inpTall1.focus(); }
-                else if (tallIBruk == 2) { inpTall2.value = ""; inpTall2.focus(); }
-                else if (tallIBruk == 3) { inpTall3.value = ""; inpTall3.focus(); }
-                else { alert("Jøje oss - tallIBruk er: " + tallIBruk) } */
+                
             }
             if (poeng > 100) {
-                btnVelgTall.innerHTML = ".level.";
                 hurtigTaster.style.display = "grid";
             }
             
