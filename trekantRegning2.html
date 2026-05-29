@@ -194,7 +194,7 @@
         function settLevel(evt) {
             var tempEkspertModus = Number(evt.target.innerHTML);
             console.log("i settLevel, tempEkspertModus er", tempEkspertModus);
-            if (tempEkspertModus >= 0 && tempEkspertModus <= 9) { //hvis brukeren har trykket på et tall (og ikke mellom tallene...)
+            //if (tempEkspertModus >= 0 && tempEkspertModus <= 9) { //hvis brukeren har trykket på et tall (og ikke mellom tallene...)
                 clearInterval(tidtaker);
                 tidtaker = setInterval(tellNed, 1000+(tempEkspertModus*100));
             
@@ -222,7 +222,7 @@
                     desimalModusGrense = 1 * pF;
                 }
                 resetInputVerdier();
-            }
+           // }
         }
         
         function kobleInnLyttere() {
