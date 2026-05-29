@@ -199,7 +199,7 @@
                 tidtaker = setInterval(tellNed, 1000+(tempEkspertModus*100));
             
                 btnVelgTall.innerHTML = "level "+ String(tempEkspertModus);
-                popAktuellEkspertmodus(tempEkspertModus);
+                popAktuellEkspertmodus(tempEkspertModus, true);
 
                 if (tempEkspertModus < 7) {
                     ekspertModusGrenseIndex = tempEkspertModus;
@@ -327,12 +327,14 @@
 
         }
 
-        function popAktuellEkspertmodus(indeks) {
-            settOppLeveltaster();
-            const spans = document.querySelectorAll("span");
-            spans[indeks].classList.add("blink");
-            console.log("i popAktuellEkspertmodus, spans[indeks]er", spans[indeks])
-            console.log("i popAktuellEkspertmodus, spans[indeks].innerHTML er", spans[indeks].innerHTML)
+        function popAktuellEkspertmodus(indeks, fraManuell) {
+            if (!fraManuell && index == 6) {
+                    settOppLeveltaster();
+                    const spans = document.querySelectorAll("span");
+                    spans[indeks].classList.add("blink");
+                    console.log("i popAktuellEkspertmodus, spans[indeks]er", spans[indeks])
+                    console.log("i popAktuellEkspertmodus, spans[indeks].innerHTML er", spans[indeks].innerHTML)
+            }
         }
         
         function vurderTallene() {
@@ -354,7 +356,7 @@
             }
 
             //Ekspertmodus bestemmer hvor tøffe oppgavene skal være
-            popAktuellEkspertmodus(ekspertModusGrenseIndex);
+            popAktuellEkspertmodus(ekspertModusGrenseIndex, false);
             console.log("EkspertModusGrenseIndex er: " + ekspertModusGrenseIndex);
             console.log("poeng er" + poeng);
 
