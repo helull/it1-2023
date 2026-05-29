@@ -194,34 +194,35 @@
         function settLevel(evt) {
             var tempEkspertModus = Number(evt.target.innerHTML);
             console.log("i settLevel, tempEkspertModus er", tempEkspertModus);
-
-            clearInterval(tidtaker);
-            tidtaker = setInterval(tellNed, 1000+(tempEkspertModus*100));
+            if (tempEkspertModus <= 0 and tempEkspertModus <= 9) { //hvis brukeren har trykket på et tall (og ikke mellom tallene...)
+                clearInterval(tidtaker);
+                tidtaker = setInterval(tellNed, 1000+(tempEkspertModus*100));
             
-            btnVelgTall.innerHTML = "level "+ String(tempEkspertModus);
-            popAktuellEkspertmodus(tempEkspertModus);
+                btnVelgTall.innerHTML = "level "+ String(tempEkspertModus);
+                popAktuellEkspertmodus(tempEkspertModus);
 
-            if (tempEkspertModus < 7) {
-                ekspertModusGrenseIndex = tempEkspertModus;
-                deleModusGrense = 25 * pF;
-                desimalModusGrense = 50 * pF;
-            }           
-            else if (tempEkspertModus == 7) {
-                ekspertModusGrenseIndex = 6;
-                deleModusGrense = 5 * pF;
-                desimalModusGrense = 10 * pF;
+                if (tempEkspertModus < 7) {
+                    ekspertModusGrenseIndex = tempEkspertModus;
+                    deleModusGrense = 25 * pF;
+                    desimalModusGrense = 50 * pF;
+                }           
+                else if (tempEkspertModus == 7) {
+                    ekspertModusGrenseIndex = 6;
+                    deleModusGrense = 5 * pF;
+                    desimalModusGrense = 10 * pF;
+                }
+                else if (tempEkspertModus == 8) {
+                    ekspertModusGrenseIndex = 6;
+                    deleModusGrense = 2 * pF;
+                    desimalModusGrense = 5 * pF;
+                }    
+                else if (tempEkspertModus == 9) {
+                    ekspertModusGrenseIndex = 6;
+                    deleModusGrense = 1 * pF;
+                    desimalModusGrense = 1 * pF;
+                }
+                resetInputVerdier();
             }
-            else if (tempEkspertModus == 8) {
-                ekspertModusGrenseIndex = 6;
-                deleModusGrense = 2 * pF;
-                desimalModusGrense = 5 * pF;
-            }    
-            else if (tempEkspertModus == 9) {
-                ekspertModusGrenseIndex = 6;
-                deleModusGrense = 1 * pF;
-                desimalModusGrense = 1 * pF;
-            }
-            resetInputVerdier();
         }
         
         function kobleInnLyttere() {
