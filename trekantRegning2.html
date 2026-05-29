@@ -102,11 +102,18 @@
                 }
             }
         }
-        
-        .blink {
-            color: brown;
-        }
 
+
+.blink {
+  transition: transform 0.2s ease;
+  display: inline-block; /* viktig for span */
+}
+
+.blink:hover {
+  transform: scale(1.3);
+}
+
+        
     </style>
 </head>
 
