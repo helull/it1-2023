@@ -103,7 +103,7 @@
         }
 
         .blink {
-            border-width: 6px;
+            border-width: 5px;
         }
         
     </style>
@@ -192,8 +192,8 @@
 
 
         function settLevel(evt) {
-            console.log("i settLevel");
             var tempEkspertModus = Number(evt.target.innerHTML);
+            console.log("i settLevel, tempEkspertModus er", tempEkspertModus);
 
             clearInterval(tidtaker);
             tidtaker = setInterval(tellNed, 1000+(tempEkspertModus*100));
@@ -327,6 +327,7 @@
         }
 
         function popAktuellEkspertmodus(indeks) {
+            settOppLeveltaster();
             const spans = document.querySelectorAll("span");
             spans[indeks].classList.add("blink");
             console.log("i popAktuellEkspertmodus, spans[indeks]er", spans[indeks])
