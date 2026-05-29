@@ -335,7 +335,8 @@
         function popAktuellEkspertmodus(indeks) {
             const spans = document.querySelectorAll("span");
             spans[indeks].classList.add("blink");
-
+            console.log("i popAktuellEkspertmodus, spans[indeks]er", spans[indeks])
+            console.log("i popAktuellEkspertmodus, spans[indeks].innerHTML er", spans[indeks].innerHTML)
         }
         
         function vurderTallene() {
