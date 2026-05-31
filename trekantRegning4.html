@@ -353,9 +353,16 @@
             let tall1Norm = inpTall1.value.replace(",",".");   // 28.05.2026 for å passe på iPhones numeriske tastatur som kun har komma
             let tall2Norm = inpTall2.value.replace(",",".");
             let tall3Norm = inpTall3.value.replace(",",".");
-          
+
+            console.log("normversjoner: ", tall1Norm, tall2Norm, tall3Norm)
+
+            tall1 = Number(tall1Norm);
+            tall2 = Number(tall2Norm);
+            tall3 = Number(tall3Norm);
+            console.log("stdversjoner: ", tall1, tall2, tall3)
+
             //stop, bruk trekanten som kalkulator
-            if ((tall1Norm == "..") || (tall2Norm == "..") || tall3Norm == "..") {    // Programmet skal i kalkulatormodus
+            if ((tall1 == "..") || (tall2 == "..") || tall3 == "..") {    // Programmet skal i kalkulatormodus
                  clearInterval(tidtaker);
                  inpTall1.value = "";
                  inpTall2.value = "";
@@ -413,10 +420,6 @@ console.log("i presenterfasit")
                     ekspertModusGrenseIndex = ekspertModusGrenseIndex - 1;
                 }
             }
-          
-            tall1 = Number(tall1Norm);
-            tall2 = Number(tall2Norm);
-            tall3 = Number(tall3Norm);
             
             //Brukeren har svart riktig
             if (Math.abs(tall1 - (tall2 * tall3)) < 0.01) {
