@@ -357,22 +357,7 @@
             oppstart = false;  //trengs bare å gjøres en gang, pga at jeg vil at "Trykk her" skal bli stående til første svar er gitt!
             btnVelgTall.removeEventListener("click", vurderTallene);
             document.removeEventListener("keypress", tastaturHendelse);
-          /* skal fjernes
-            if ((poeng > deleModusGrense) && (forrigeVarRett)) {
-                deleModus = true;
-            }
-            else {
-                deleModus = false;
-            }
-
-            if ((poeng > desimalModusGrense) && (forrigeVarRett)) {
-                desimalModus = true;
-            }
-            else {
-                desimalModus = false;
-            }
-            */ skal fjernes
-          
+                    
             //Ekspertmodus bestemmer hvor tøffe oppgavene skal være
             popAktuellEkspertmodus(ekspertModusGrenseIndex);
             console.log("EkspertModusGrenseIndex er: " + ekspertModusGrenseIndex);
