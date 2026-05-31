@@ -212,6 +212,9 @@
         function resetInputVerdier() {
             kobleInnLyttere();
 
+            //Null ut tekst hvis man har vært i kalkulatormodus - utrolig klønete løsning!
+            if (melding.innerHTML == "...som er svaret...  La oss fortsette!") {melding.innerHTML = "";}
+            
             // Sett sort tekst i tilfelle den har vært grønn
             inpTall1.style.color = "black";
             inpTall2.style.color = "black";
