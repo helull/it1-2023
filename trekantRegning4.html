@@ -389,8 +389,8 @@ console.log("i presenterfasit")
                     inpTall3.style.color = "green";
                 }
 
-                //setTimeout(startTidtaker, ventTilForsteSpm);
-                //tidtaker = setInterval(tellNed, nedTellingsIntervall);
+                //tidtaker = setInterval(tellNed, 800+(ekspertModusGrenseIndex*150));       
+                setTimeout(startTidtaker, ventTilForsteSpm);
                 setTimeout(resetInputVerdier, ventTilForsteSpm);
 
                 melding.innerHTML = "...som er svaret...  La oss fortsette!";
@@ -535,7 +535,7 @@ console.log("i presenterfasit")
 
         //start tidtakeren (litt forsinket aller første gang, derfor som egen funsjon)
         function startTidtaker() {
-            tidtaker = setInterval(tellNed, nedTellingsIntervall);
+            tidtaker = setInterval(tellNed, 800+(ekspertModusGrenseIndex*150));
         }
 
         //Beregn hva som skal stå i level'ene.
