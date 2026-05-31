@@ -192,7 +192,7 @@
         function settNedtellingstid() {
             var nyTid = 800+(ekspertModusGrenseIndex*150)
             clearInterval(tidtaker);
-            tidtaker = setInterval(tellNed, nyTid));
+            tidtaker = setInterval(tellNed, nyTid);
             btnVelgTall.innerHTML = "Level: "+ String(ekspertModusGrenseIndex), "Tempo: ", String(nyTid);
             popAktuellEkspertmodus(ekspertModusGrenseIndex);
         }
