@@ -199,12 +199,14 @@
         }
 
         function settNedtellingstid() {
+            kobleUtLyttere();
             var nyTid = 800+(ekspertModusGrenseIndex*150)
-            var tidsPresentasjon = String((nyTid/800).toFixed(1));
+            var tidsPresentasjon = String((800/nyTid).toFixed(1));
             clearInterval(tidtaker);
             tidtaker = setInterval(tellNed, nyTid);
             btnVelgTall.innerHTML = "Level: "+ String(ekspertModusGrenseIndex) + ", Tempo: " + tidsPresentasjon;
-            popAktuellEkspertmodus();            
+            popAktuellEkspertmodus();
+            setTimeout(kobleInnLyttere, ventTilNyttSpm);
         }
         
         function settLevel(evt) {
@@ -220,6 +222,11 @@
         function kobleInnLyttere() {
             btnVelgTall.addEventListener("click", vurderTallene);
             document.addEventListener("keypress", tastaturHendelse);
+        }
+        
+        function kobleUtLyttere() {
+            btnVelgTall.removeEventListener("click", vurderTallene);
+            document.removeEventListener("keypress", tastaturHendelse);
         }
 
         function resetInputVerdier() {
@@ -414,11 +421,10 @@
             }
 
             else { //normal omgang!
-            btnVelgTall.removeEventListener("click", vurderTallene);
-            document.removeEventListener("keypress", tastaturHendelse);
+            //kobleUtLyttere();
                 
             //Ekspertmodus bestemmer hvor tøffe oppgavene skal være
-            settNedtellingstid();
+            //settNedtellingstid();
             console.log("EkspertModusGrenseIndex er: " + ekspertModusGrenseIndex);
             console.log("EkspertModusGrenseIndex er: " + ekspertModusGrenser);
             console.log("poeng er" + poeng);
