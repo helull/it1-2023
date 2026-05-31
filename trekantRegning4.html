@@ -210,7 +210,8 @@
             popAktuellEkspertmodus();
             setTimeout(kobleInnLyttere, ventTilNyttSpm);
             
-            videoFil.focus();
+            //videoFil.focus();
+            document.activeElement.blur();
             videoFil.src = "1.mp4";
             videoFil.style.display = "block";
             videoFil.load();
