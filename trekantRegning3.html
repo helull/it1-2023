@@ -208,7 +208,7 @@
         function kobleInnLyttere() {
             btnVelgTall.addEventListener("click", vurderTallene);
             //document.addEventListener("keypress", tastaturHendelse); 31.05.2026
-            document.addEventListener("input", tastaturHendelse);
+            document.addEventListener("keydown", tastaturHendelse);
 
         }
 
@@ -354,7 +354,7 @@
             oppstart = false;  //trengs bare å gjøres en gang, pga at jeg vil at "Trykk her" skal bli stående til første svar er gitt!
             btnVelgTall.removeEventListener("click", vurderTallene);
             //document.removeEventListener("keypress", tastaturHendelse);  31.05.2026
-            document.removeEventListener("input", tastaturHendelse);
+            document.removeEventListener("keydown", tastaturHendelse);
 
             //Ekspertmodus bestemmer hvor tøffe oppgavene skal være
             popAktuellEkspertmodus(ekspertModusGrenseIndex);
