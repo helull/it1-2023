@@ -211,7 +211,20 @@
             setTimeout(kobleInnLyttere, ventTilNyttSpm);
             
             //videoFil.focus();
-            document.activeElement.blur();
+            //document.activeElement.blur();
+
+
+const input = document.activeElement;
+
+input.setAttribute("readonly", true);
+input.blur();
+
+setTimeout(() => {
+    input.removeAttribute("readonly");
+}, 100);
+
+
+            
             videoFil.src = "1.mp4";
             videoFil.style.display = "block";
             videoFil.load();
