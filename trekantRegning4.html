@@ -36,6 +36,10 @@
             grid-gap: 2px;
         }
 
+        #videoFil {
+            display: none;
+        }
+        
         #trekant {
             display: grid;
             width: 50vw;
@@ -123,8 +127,8 @@
     <br>
     <div id="hurtigTaster">
     </div>
-    
-    <video id="videoFil" width="600" controls style="width: 80%; max-width: 80%">
+    <br>
+    <video id="videoFil" width="600" controls style="width: 80%; max-width: 60%">
         <source src="1.mp4" type="video/mp4">
         Nettleseren støtter ikke video.
     </video>
@@ -153,7 +157,6 @@
         const nedTellingsIntervallStep = 100; //endringshastighet (ved + og -) på "klokka" som går
         var  nedTellingsIntervall = 1000;     //hastighet på "klokka" som går, normalt 1000 milliSekunder.
         var  oppstart = true;
-        var forceModus = false;
 
         var ekspertModusGrenseIndex = 0;
         var forrigeVarRett = true;
@@ -174,8 +177,7 @@
 
         var gladLyd = document.getElementById("gladLyd");
 
-
-        const videoFil = document.getElementById("videoFil");
+        var videoFil = document.getElementById("videoFil");
         videoFil.play();
         
         function tellNed() {
