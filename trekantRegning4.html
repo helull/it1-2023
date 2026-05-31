@@ -178,7 +178,6 @@
         var gladLyd = document.getElementById("gladLyd");
 
         var videoFil = document.getElementById("videoFil");
-        videoFil.play();
         
         function tellNed() {
             if (poeng > 0) {
@@ -209,7 +208,11 @@
             btnVelgTall.innerHTML = "Lvl: "+ String(ekspertModusGrenseIndex) + ", Tempo: " + tidsPresentasjon;
             popAktuellEkspertmodus();
             setTimeout(kobleInnLyttere, ventTilNyttSpm);
+            videoFil.src = "1.mp4";
             videoFil.style.display = "block";
+            videoFil.load();
+            videoFil.play();
+
         }
         
         function settLevel(evt) {
