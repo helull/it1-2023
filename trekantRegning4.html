@@ -381,8 +381,9 @@ console.log("i presenterfasit")
                     inpTall3.value = String(fasit.toFixed(antallDesimaler));
                     inpTall3.style.color = "green";
                 }
-                
-                tidtaker = setInterval(tellNed, nedTellingsIntervall);
+
+                setTimeout(startTidtaker, ventTilForsteSpm);
+                //tidtaker = setInterval(tellNed, nedTellingsIntervall);
                 resetInputVerdier();
                 kalkulatorModus = false;
             }
