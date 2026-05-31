@@ -191,6 +191,7 @@
 
 
         function settLevel(evt) {
+            console.log("I settLevel, ekspertmodusgrense er", ekspertModusGrenseIndex);
             if (ekspertModusGrenseIndex >= 0 && ekspertModusGrenseIndex <= 9) {  //Brukeren har trykket på et virkelig tall, ikke mellom!
                 ekspertModusGrenseIndex = Number(evt.target.innerHTML);
                 clearInterval(tidtaker);
