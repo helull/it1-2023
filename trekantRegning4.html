@@ -189,18 +189,20 @@
             }
         }
 
-
+        function settNedtellingstid() {
+            var nyTid = 800+(ekspertModusGrenseIndex*150)
+            clearInterval(tidtaker);
+            tidtaker = setInterval(tellNed, nyTid));
+            btnVelgTall.innerHTML = "Level: "+ String(ekspertModusGrenseIndex), "Tempo: ", String(nyTid);
+            popAktuellEkspertmodus(ekspertModusGrenseIndex);
+        }
+        
         function settLevel(evt) {
             console.log("I settLevel, ekspertmodusgrense er", ekspertModusGrenseIndex);
             var avlestVerdi = Number(evt.target.innerHTML);
             if (avlestVerdi >= 0 && avlestVerdi <= 9) {  //Brukeren har trykket på et virkelig tall, ikke mellom!
                 ekspertModusGrenseIndex = avlestVerdi;
-                clearInterval(tidtaker);
-                tidtaker = setInterval(tellNed, 800+(ekspertModusGrenseIndex*150));
-            
-                btnVelgTall.innerHTML = "Level: "+ String(ekspertModusGrenseIndex);
-                popAktuellEkspertmodus(ekspertModusGrenseIndex);
-
+                settNedtellingstid();
                 resetInputVerdier();
             }
         }
@@ -415,6 +417,7 @@
             if ((poeng > ekspertModusGrenser[ekspertModusGrenseIndex]) && (ekspertModusGrenseIndex < (ekspertModusGrenser.length - 1))) {
                 console.log("ekspertmodusGrense gjør at ekspertmodusGrenseIndex øker med 1");
                 ekspertModusGrenseIndex = ekspertModusGrenseIndex + 1;
+                settNedtellingstid();
                 gladLyd.play();
             }
 
@@ -422,6 +425,7 @@
             if (!forrigeVarRett) {
                 if (ekspertModusGrenseIndex > 0) {
                     ekspertModusGrenseIndex = ekspertModusGrenseIndex - 1;
+                    settNedtellingstid();
                 }
             }
             
