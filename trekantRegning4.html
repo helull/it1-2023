@@ -209,10 +209,14 @@
             btnVelgTall.innerHTML = "Lvl: "+ String(ekspertModusGrenseIndex) + ", Tempo: " + tidsPresentasjon;
             popAktuellEkspertmodus();
             setTimeout(kobleInnLyttere, ventTilNyttSpm);
+            
+            document.activeElement.blur()
             videoFil.src = "1.mp4";
             videoFil.style.display = "block";
             videoFil.load();
             videoFil.play();
+
+            resetInputVerdier();
         }
         
         function settLevel(evt) {
