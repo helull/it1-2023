@@ -178,6 +178,7 @@
         var gladLyd = document.getElementById("gladLyd");
 
         var videoFil = document.getElementById("videoFil");
+        videoFil.addEventListener("ended", function () {videoFil.style.display = "none";});
         
         function tellNed() {
             if (poeng > 0) {
@@ -212,7 +213,6 @@
             videoFil.style.display = "block";
             videoFil.load();
             videoFil.play();
-
         }
         
         function settLevel(evt) {
