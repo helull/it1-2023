@@ -123,6 +123,12 @@
     <br>
     <div id="hurtigTaster">
     </div>
+    <input type="file" id="videoFil" accept="video/*">
+    
+    <video id="videoFil" width="600" controls>
+        <source src="1.mp4" type="video/mp4">
+        Nettleseren støtter ikke video.
+    </video>
 
     <audio id="gladLyd">
         <source src="0.mp3" type="audio/mpeg">
@@ -169,6 +175,10 @@
 
         var gladLyd = document.getElementById("gladLyd");
 
+
+        const videoFil = document.getElementById("videoFil");
+        videoFil.play();
+        
         function tellNed() {
             if (poeng > 0) {
                 poeng--;
