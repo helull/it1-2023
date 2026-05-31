@@ -151,6 +151,7 @@
         var  nedTellingsIntervall = 1000;     //hastighet på "klokka" som går, normalt 1000 milliSekunder.
         var  oppstart = true;
         var forceModus = false;
+        var firstPressWasKomma = false;
 
         var ekspertModusGrenseIndex = 0;
         var forrigeVarRett = true;
@@ -454,7 +455,7 @@
             tall2 = Number(inpTall2.value);
             tall3 = Number(inpTall3.value);
             var fasit = -2;
-
+            
             //kjør som om du klikket svar-knappen!
             if (event.key === "Enter") { 
                 if (kalkulatorModus == false) {
@@ -463,8 +464,8 @@
             }
 
             //Presenterer fasiten!
-            else if (event.key == "f") {
-                event.preventDefault();  //sørger for at det IKKE skrives "f".
+            else if (event.key == "f"){
+                //event.preventDefault();  //sørger for at det IKKE skrives "f".
                 if (inpTall1.value == "") { //Setter opp fasit i felt øverst i trekant.
                     fasit = finnFasit(tall1, tall2, tall3);
                     inpTall1.value = String(fasit);
@@ -491,17 +492,33 @@
             }
 
             //stop, bruk trekanten som kalkulator
-            else if (event.key == "k") { 
-                event.preventDefault();  //sørger for at det IKKE skrives "k".
-                clearInterval(tidtaker);
-                inpTall1.value = "";
-                inpTall2.value = "";
-                inpTall3.value = "";
-                kalkulatorModus = true;
-                btnVelgTall.removeEventListener("click", vurderTallene);
-                btnVelgTall.innerHTML = "Skriv tall to steder og trykk 'f'";
+            else if ((event.key == ".") || (event.key == ",")) {
+                if (firstPressWasKomma == true) {
+                    event.preventDefault();  //sørger for at det IKKE skrives ",".
+
+                    if (kalkulatorModus == true) { //OK, programmet "kommer fra" kalkulatormodus og "skal tilbake"
+                        btnVelgTall.addEventListener("click", vurderTallene);
+                        tidtaker = setInterval(tellNed, nedTellingsIntervall);
+                        resetInputVerdier();
+                        kalkulatorModus = false;
+                    }
+                    else {    // Programmet skal i kalkulatormodus
+                        clearInterval(tidtaker);
+                        inpTall1.value = "";
+                        inpTall2.value = "";
+                        inpTall3.value = "";
+                        kalkulatorModus = true;
+                        btnVelgTall.removeEventListener("click", vurderTallene);
+                        btnVelgTall.innerHTML = "Skriv tall to steder og trykk 'f'";
+                    }
+                    firstPressWasKomma = false;
+                }
+                else {
+                    firstPressWasKomma = true;
+                }
             }
 
+            /*
             //"s"= "start på nytt etter kalkulatormodus"
             //virker bare etter "k" - restart fra de poengene du hadde
             else if (event.key == "s") { 
@@ -512,7 +529,7 @@
                     resetInputVerdier();
                 }
                 kalkulatorModus = false;
-            }
+            }  */
         }
 
         //start tidtakeren (litt forsinket aller første gang, derfor som egen funsjon)
