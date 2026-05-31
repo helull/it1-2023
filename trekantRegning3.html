@@ -150,6 +150,7 @@
         const nedTellingsIntervallStep = 100; //endringshastighet (ved + og -) på "klokka" som går
         var  nedTellingsIntervall = 1000;     //hastighet på "klokka" som går, normalt 1000 milliSekunder.
         var  oppstart = true;
+        var forceModus = false;
 
         var ekspertModusGrenseIndex = 0;
         var forrigeVarRett = true;
@@ -192,14 +193,11 @@
 
 
         function settLevel(evt) {
-            var tempEkspertModus = Number(evt.target.innerHTML);
-            console.log("i settLevel, tempEkspertModus er", tempEkspertModus);
-            //if (tempEkspertModus >= 0 && tempEkspertModus <= 9) { //hvis brukeren har trykket på et tall (og ikke mellom tallene...)
                 clearInterval(tidtaker);
-                tidtaker = setInterval(tellNed, 1000+(tempEkspertModus*100));
+                tidtaker = setInterval(tellNed, 800+(ekspertModusGrenseIndex*150));
             
-                btnVelgTall.innerHTML = "level "+ String(tempEkspertModus);
-                popAktuellEkspertmodus(tempEkspertModus);
+                btnVelgTall.innerHTML = "level "+ String(ekspertModusGrenseIndex);
+                popAktuellEkspertmodus(ekspertModusGrenseIndex);
 
                 resetInputVerdier();
            // }
@@ -513,45 +511,6 @@
                     resetInputVerdier();
                 }
                 kalkulatorModus = false;
-            }
-
-            //Sett opp tiden mellom hvert spørsmål. Max = 2000 ms
-            else if (event.key == "+") {
-                event.preventDefault();  //sørger for at det IKKE skrives "+".
-                if (nedTellingsIntervall < nedTellingsIntervallMax) {
-                    clearInterval(tidtaker);    
-                    nedTellingsIntervall += nedTellingsIntervallStep;
-                    tidtaker = setInterval(tellNed, nedTellingsIntervall);
-                }
-            }
-
-            //Sett ned tiden mellom hvert spørsmål. Min = 500ms
-            else if (event.key == "-") {
-                event.preventDefault();  //sørger for at det IKKE skrives "+".
-                if (nedTellingsIntervall > nedTellingsIntervallMin) {
-                    clearInterval(tidtaker);
-                    nedTellingsIntervall -= nedTellingsIntervallStep;
-                    tidtaker = setInterval(tellNed, nedTellingsIntervall);
-                }
-                
-            }
-
-            //"a" = "antall desimaler økes"
-            //Sett opp antall desimaler med 1.  Max=3.
-            else if (event.key == "a") {
-                event.preventDefault();  //sørger for at det IKKE skrives "+".
-                if (antallDesimaler < 3) {
-                    antallDesimaler++;
-                }
-            }
-
-            //"b" = "motsatt av a"
-            //Sett ned antall desimaler med 1.  Min=1.
-            else if (event.key == "b") {
-                event.preventDefault();  //sørger for at det IKKE skrives "+".
-                if (antallDesimaler > 1) {
-                    antallDesimaler--;
-                }                
             }
         }
 
