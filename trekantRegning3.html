@@ -341,16 +341,11 @@
         }
 
         function popAktuellEkspertmodus(indeks) {
-            if (!fraManuell && indeks == 6) {
-                //do nothing ->bør skrives om....
-            }
-            else{
-                    settOppLeveltaster();
-                    const spans = document.querySelectorAll("span");
-                    spans[indeks].classList.add("aktuellEkspertModus");
-                    console.log("i popAktuellEkspertmodus, spans[indeks]er", spans[indeks])
-                    console.log("i popAktuellEkspertmodus, spans[indeks].innerHTML er", spans[indeks].innerHTML)
-            }
+            settOppLeveltaster();
+            const spans = document.querySelectorAll("span");
+            spans[indeks].classList.add("aktuellEkspertModus");
+            console.log("i popAktuellEkspertmodus, spans[indeks]er", spans[indeks]);
+            console.log("i popAktuellEkspertmodus, spans[indeks].innerHTML er", spans[indeks].innerHTML);
         }
         
         function vurderTallene() {
