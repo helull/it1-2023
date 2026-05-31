@@ -139,8 +139,6 @@
         var desimalModus = false;
 
         //Heltallet er antall riktige svar som kreves for modusendring
-        //var deleModusGrense = 25 * pF;
-        //var desimalModusGrense = 50 * pF;
         const ekspertModusGrenser = [5 * pF, 10 * pF, 20 * pF, 30 * pF, 50 * pF, 60 * pF, 70 * pF, 80 * pF, 90 * pF, 100 * pF];  //Må passe med antall valg i resetInputVerdier()
 
         const ventTilForsteSpm = 2000;         //ventetid før neste spørsmål kommer
@@ -212,7 +210,7 @@
         function resetInputVerdier() {
             kobleInnLyttere();
 
-            //Null ut tekst hvis man har vært i kalkulatormodus - utrolig klønete løsning!
+            //"Null ut tekst" hvis man har vært i kalkulatormodus - utrolig klønete løsning!
             if (melding.innerHTML == "...som er svaret...  La oss fortsette!") {melding.innerHTML = "";}
             
             // Sett sort tekst i tilfelle den har vært grønn
@@ -263,7 +261,7 @@
                 tall3 = Math.ceil(Math.random() * 10) + 5;
                 deleModus = true;
                 desimalModus = false;
-            }  //nye
+            }
             else if (ekspertModusGrenseIndex == 7) {
                 tall2 = Math.ceil(Math.random() * 10) + 5;
                 tall3 = Math.ceil(Math.random() * 10) + 5;
@@ -407,10 +405,12 @@ console.log("i presenterfasit")
             //Ekspertmodus bestemmer hvor tøffe oppgavene skal være
             popAktuellEkspertmodus(ekspertModusGrenseIndex);
             console.log("EkspertModusGrenseIndex er: " + ekspertModusGrenseIndex);
+            console.log("EkspertModusGrenseIndex er: " + ekspertModusGrenser);
             console.log("poeng er" + poeng);
 
-            if ((poeng > ekspertModusGrenser[ekspertModusGrenseIndex]) && (ekspertModusGrenseIndex < ekspertModusGrenser.length - 1)) {
-                console.log("ekspertmodusGrense gjør at ekspertmodusGrenseIndex øker med 1")
+
+            if ((poeng > ekspertModusGrenser[ekspertModusGrenseIndex]) && (ekspertModusGrenseIndex < (ekspertModusGrenser.length - 1))) {
+                console.log("ekspertmodusGrense gjør at ekspertmodusGrenseIndex øker med 1");
                 ekspertModusGrenseIndex = ekspertModusGrenseIndex + 1;
                 gladLyd.play();
             }
