@@ -201,10 +201,11 @@
 
         function settNedtellingstid() {
             var nyTid = 800+(ekspertModusGrenseIndex*150)
+            var tidsPresentasjon = String((nyTid/800).toFixed(1));
             clearInterval(tidtaker);
             tidtaker = setInterval(tellNed, nyTid);
-            btnVelgTall.innerHTML = "Level: "+ String(ekspertModusGrenseIndex) + "Tempo: " + String(nyTid);
-            popAktuellEkspertmodus(ekspertModusGrenseIndex);
+            btnVelgTall.innerHTML = "Level: "+ String(ekspertModusGrenseIndex) + ", Tempo: " + tidsPresentasjon;
+            popAktuellEkspertmodus(ekspertModusGrenseIndex);            
         }
         
         function settLevel(evt) {
