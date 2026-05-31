@@ -197,7 +197,7 @@
                 clearInterval(tidtaker);
                 tidtaker = setInterval(tellNed, 800+(ekspertModusGrenseIndex*150));
             
-                btnVelgTall.innerHTML = "level "+ String(ekspertModusGrenseIndex);
+                btnVelgTall.innerHTML = "Level: "+ String(ekspertModusGrenseIndex);
                 popAktuellEkspertmodus(ekspertModusGrenseIndex);
 
                 resetInputVerdier();
@@ -331,7 +331,6 @@
 
                 //Ikke i delemodus, dvs vi er i gangemodus    
             } else {
-              console.log ("i resetinputverdier, linje 322");
                 inpTall1.value = "";
                 btnVelgTall.addEventListener("click", () => {inpTall1.focus();}, { once: true });    //26.05.2026
                 inpTall1.focus();
@@ -339,7 +338,6 @@
                 inpTall3.value = String(tall3);
                 tallIBruk = 1;
             }
-
         }
 
         function popAktuellEkspertmodus(indeks) {
