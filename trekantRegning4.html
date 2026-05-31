@@ -191,7 +191,7 @@
 
 
         function settLevel(evt) {
-            if (tempEkspertModus >= 0 && tempEkspertModus <= 9) {
+            if (ekspertModusGrenseIndex >= 0 && ekspertModusGrenseIndex <= 9) {  //Brukeren har trykket på et virkelig tall, ikke mellom!
                 ekspertModusGrenseIndex = Number(evt.target.innerHTML);
                 clearInterval(tidtaker);
                 tidtaker = setInterval(tellNed, 800+(ekspertModusGrenseIndex*150));
