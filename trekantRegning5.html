@@ -208,7 +208,7 @@
             kobleUtLyttere();
             nedTellingsIntervall = 800+(ekspertModusGrenseIndex*150)
             var tidsPresentasjon = String((800/nedTellingsIntervall).toFixed(1));
-            clearInterval(tidtaker);  //stopp tidtakeren
+            stoppTidtaker();
             btnVelgTall.innerHTML = "Lvl: "+ String(ekspertModusGrenseIndex) + ", Tempo: " + tidsPresentasjon;
         
             setTimeout(startTidtaker, ventTilForsteSpm);  //start tidtakeren
@@ -377,7 +377,7 @@
         }
 
         function startRelevantVideo() {
-            clearInterval(tidtaker);
+            stoppTidtaker();
 
            var filnavn = String(ekspertModusGrenseIndex)+".mp4";
             if (showVideo == true) {
@@ -421,7 +421,7 @@
 
             //stop, bruk trekanten som kalkulator
             if ((tall1Norm == "...") || (tall2Norm == "...") || tall3Norm == "...") {    // Programmet skal droppe videoer
-                 clearInterval(tidtaker);
+                 stoppTidtaker();
                  if (showVideo == true) {
                      btnVelgTall.innerHTML = "Video off";
                      showVideo = false;
@@ -434,7 +434,7 @@
                  setTimeout(resetInputVerdier, ventTilForsteSpm/2);
             }
             else if ((tall1Norm == "..") || (tall2Norm == "..") || tall3Norm == "..") {    // Programmet skal i kalkulatormodus
-                 clearInterval(tidtaker);
+                 stoppTidtaker();
                  inpTall1.value = "";
                  inpTall2.value = "";
                  inpTall3.value = "";
@@ -602,6 +602,12 @@
             tidtaker = setInterval(tellNed, nedTellingsIntervall);
         }
 
+        //stopp tidtakeren (for å ha litt kontroll på galskapen)
+        function stoppTidtaker() {
+            console.log("I stoppTidtaker: ny Tid er: ", nedTellingsIntervall);
+            clearInterval(tidtaker);  //stopp tidtakeren
+        }
+        
         //Beregn hva som skal stå i level'ene.
         settOppLeveltaster();
         
