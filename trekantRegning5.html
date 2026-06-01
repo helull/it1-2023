@@ -602,6 +602,7 @@
 
         //start tidtakeren (litt forsinket aller første gang, derfor som egen funsjon)
         function startTidtaker() {
+            console.log("I STARTtidtker: ny Tid er: ", nyTid)
             tidtaker = setInterval(tellNed, nyTid);
         }
 
