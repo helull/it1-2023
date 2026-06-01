@@ -247,7 +247,6 @@
         }
         
         function settLevel(evt) {
-            console.log("I settLevel, ekspertmodusgrense er", ekspertModusGrenseIndex);
             var avlestVerdi = Number(evt.target.innerHTML);
             if (avlestVerdi >= 0 && avlestVerdi <= 9) {  //Brukeren har trykket på et virkelig tall, ikke mellom!
                 ekspertModusGrenseIndex = avlestVerdi;
@@ -404,8 +403,6 @@
             settOppLeveltaster();
             const spans = document.querySelectorAll("span");
             spans[ekspertModusGrenseIndex].classList.add("aktuellEkspertModus");
-            console.log("i popAktuellEkspertmodus, spans[ekspertModusGrenseIndex]er", spans[ekspertModusGrenseIndex]);
-            console.log("i popAktuellEkspertmodus, spans[ekspertModusGrenseIndex].innerHTML er", spans[ekspertModusGrenseIndex].innerHTML);
         }
         
         function vurderTallene() {
@@ -418,12 +415,9 @@
             let tall2Norm = inpTall2.value.replaceAll(",",".");
             let tall3Norm = inpTall3.value.replaceAll(",",".");
 
-            console.log("normversjoner: ", tall1Norm, tall2Norm, tall3Norm)
-
             tall1 = Number(tall1Norm);
             tall2 = Number(tall2Norm);
             tall3 = Number(tall3Norm);
-            console.log("stdversjoner: ", tall1, tall2, tall3)
 
             //stop, bruk trekanten som kalkulator
             if ((tall1Norm == "...") || (tall2Norm == "...") || tall3Norm == "...") {    // Programmet skal droppe videoer
@@ -477,14 +471,7 @@
             }
 
             else { //normal omgang!
-            //kobleUtLyttere();
-                
-            //Ekspertmodus bestemmer hvor tøffe oppgavene skal være
-            //settNedtellingstid();
-            console.log("EkspertModusGrenseIndex er: " + ekspertModusGrenseIndex);
-            console.log("EkspertModusGrenseIndex er: " + ekspertModusGrenser);
-            console.log("poeng er" + poeng);
-
+            console.log("Normal omgang. poeng er: " + poeng);
 
             if ((poeng > ekspertModusGrenser[ekspertModusGrenseIndex]) && (ekspertModusGrenseIndex < (ekspertModusGrenser.length - 1))) {
                 console.log("ekspertmodusGrense gjør at ekspertmodusGrenseIndex øker med 1");
