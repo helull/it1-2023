@@ -477,8 +477,8 @@
                 if ((poeng > ekspertModusGrenser[ekspertModusGrenseIndex]) && (ekspertModusGrenseIndex < (ekspertModusGrenser.length - 1))) {
                     console.log("ekspertmodusGrense gjør at ekspertmodusGrenseIndex øker med 1");
                     ekspertModusGrenseIndex = ekspertModusGrenseIndex + 1;
-                    settNedtellingstid();
                     startRelevantVideo();
+                    settNedtellingstid();
                 }
     
                 //Hvis forrige var feil, og ekspertmodus er OVER 1
@@ -600,7 +600,7 @@
 
         //start tidtakeren (litt forsinket aller første gang, derfor som egen funsjon)
         function startTidtaker() {
-            console.log("I STARTtidtker: ny Tid er: ", nedTellingsIntervall);
+            console.log("I STARTtidtaker: ny Tid er: ", nedTellingsIntervall);
             if (!tidtakerKjorer) {
                 tidtaker = setInterval(tellNed, nedTellingsIntervall);
                 tidtakerKjorer = true;
