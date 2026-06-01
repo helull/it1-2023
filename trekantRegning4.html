@@ -192,7 +192,7 @@
             if(!oppstart) {btnVelgTall.innerHTML = poeng + " poeng";}
         }
 
-        hurtigTaster.onclick = settLevel;
+//        hurtigTaster.onclick = settLevel;
 
         function settOppLeveltaster() {
             hurtigTaster.innerHTML = "";
@@ -211,7 +211,6 @@
             var tidsPresentasjon = String((800/nyTid).toFixed(1));
             clearInterval(tidtaker);
 
-            tidtaker = setInterval(tellNed, nyTid);
             btnVelgTall.innerHTML = "Lvl: "+ String(ekspertModusGrenseIndex) + ", Tempo: " + tidsPresentasjon;
           
             var filnavn = String(ekspertModusGrenseIndex)+".mp4";
@@ -228,6 +227,7 @@
                     }
                 })
 
+            tidtaker = setInterval(tellNed, nyTid);
             popAktuellEkspertmodus();
             setTimeout(kobleInnLyttere, ventTilNyttSpm);
             resetInputVerdier();
@@ -246,11 +246,14 @@
         function kobleInnLyttere() {
             btnVelgTall.addEventListener("click", vurderTallene);
             document.addEventListener("keypress", tastaturHendelse);
+            hurtigtaster.addEventListener("click", settLevel);
         }
         
         function kobleUtLyttere() {
             btnVelgTall.removeEventListener("click", vurderTallene);
             document.removeEventListener("keypress", tastaturHendelse);
+            hurtigtaster.removeEventListener("click", settLevel);
+
         }
 
         function resetInputVerdier() {
