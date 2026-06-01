@@ -229,6 +229,7 @@
                 .then(response => {
                     if (response.ok) {
                         console.log("Video finnes ✅");
+                        hurtigTaster.style.display = "none";
                         videoFil.src = filnavn;
                         videoFil.style.display = "block";
                         videoFil.load();
