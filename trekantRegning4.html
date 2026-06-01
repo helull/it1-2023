@@ -209,15 +209,8 @@
             var nyTid = 800+(ekspertModusGrenseIndex*150)
             var tidsPresentasjon = String((800/nyTid).toFixed(1));
             clearInterval(tidtaker);
-            tidtaker = setInterval(tellNed, nyTid);
-            btnVelgTall.innerHTML = "Lvl: "+ String(ekspertModusGrenseIndex) + ", Tempo: " + tidsPresentasjon;
-            popAktuellEkspertmodus();
-            setTimeout(kobleInnLyttere, ventTilNyttSpm);
-            
-            //videoFil.focus();
-            //document.activeElement.blur();
 
-
+/*
 const input = document.activeElement;
 
 input.setAttribute("readonly", true);
@@ -225,15 +218,36 @@ input.blur();
 
 setTimeout(() => {
     input.removeAttribute("readonly");
-}, 100);
-
+}, 100);*/
+            tidtaker = setInterval(tellNed, nyTid);
+            btnVelgTall.innerHTML = "Lvl: "+ String(ekspertModusGrenseIndex) + ", Tempo: " + tidsPresentasjon;
 
             
-            videoFil.src = "1.mp4";
+            
+            var filnavn = String(ekspertModusGrenser[ekspertModusGrenseIndex])+".mp4";
+
+
+fetch(filnavn, { method: "HEAD" })
+    .then(response => {
+        if (response.ok) {
+            console.log("Video finnes ✅");
+            videoFil.src = filnavn;
             videoFil.style.display = "block";
             videoFil.load();
             videoFil.play();
+        } else {
+            console.log("Video finnes ikke ❌");
+        }
+    })
 
+            
+            /*videoFil.src = filnavn;
+            videoFil.style.display = "block";
+            videoFil.load();
+            videoFil.play(); */
+
+            popAktuellEkspertmodus();
+            setTimeout(kobleInnLyttere, ventTilNyttSpm);
             resetInputVerdier();
         }
         
@@ -365,13 +379,13 @@ setTimeout(() => {
                 if (Math.random() > 0.5) {
                     inpTall2.value = String(tall2);
                     inpTall3.value = "";
-                    //btnVelgTall.addEventListener("click", () => {inpTall3.focus();}, { once: true });    //26.05.2026
+                    btnVelgTall.addEventListener("click", () => {inpTall3.focus();}, { once: true });    //26.05.2026
                     inpTall3.focus();                                    
                     tallIBruk = 3;
                 }
                 else {
                     inpTall2.value = "";
-                    //btnVelgTall.addEventListener("click", () => {inpTall2.focus();}, { once: true });    //26.05.2026
+                    btnVelgTall.addEventListener("click", () => {inpTall2.focus();}, { once: true });    //26.05.2026
                     inpTall2.focus();
                     inpTall3.value = String(tall3);
                     tallIBruk = 2;
@@ -380,7 +394,7 @@ setTimeout(() => {
                 //Ikke i delemodus, dvs vi er i gangemodus    
             } else {
                 inpTall1.value = "";
-                //btnVelgTall.addEventListener("click", () => {inpTall1.focus();}, { once: true });    //26.05.2026
+                btnVelgTall.addEventListener("click", () => {inpTall1.focus();}, { once: true });    //26.05.2026
                 inpTall1.focus();
                 inpTall2.value = String(tall2);
                 inpTall3.value = String(tall3);
