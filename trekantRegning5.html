@@ -485,6 +485,7 @@
     
                 //Hvis forrige var feil, og ekspertmodus er OVER 1
                 if (!forrigeVarRett) {
+                    console.log("forrige var feil");
                     if (ekspertModusGrenseIndex > 0) {
                         ekspertModusGrenseIndex = ekspertModusGrenseIndex - 1;
                         settNedtellingstid();
@@ -493,6 +494,7 @@
             
                 //Brukeren har svart riktig
                 if (Math.abs(tall1 - (tall2 * tall3)) < 0.01) {
+                    console.log("forrige var rett");
                     forrigeVarRett = true;
                     btnVelgTall.style.backgroundColor = "lightgrey";
                     poeng = poeng + pF;
