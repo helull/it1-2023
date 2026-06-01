@@ -179,7 +179,7 @@
         function videoFerdig() {
             console.log("VideoFerdig!!!")
             videoFil.style.display = "none";
-            setTimeout(startTidtaker, ventTilForsteSpm/2);
+            setTimeout(startTidtaker, ventTilForsteSpm/4);
             popAktuellEkspertmodus();
             setTimeout(kobleInnLyttere, ventTilNyttSpm);
             resetInputVerdier();
@@ -213,7 +213,7 @@
             stoppTidtaker();
             btnVelgTall.innerHTML = "Lvl: "+ String(ekspertModusGrenseIndex) + ", Tempo: " + tidsPresentasjon;
         
-            setTimeout(startTidtaker, ventTilForsteSpm);  //start tidtakeren
+            setTimeout(startTidtaker, ventTilForsteSpm/4);  //start tidtakeren
             popAktuellEkspertmodus();
             setTimeout(kobleInnLyttere, ventTilNyttSpm);
             //resetInputVerdier();
@@ -393,7 +393,7 @@
                             videoFil.load();
                             videoFil.play();
                         } else {
-                            setTimeout(startTidtaker, ventTilForsteSpm); //start tidtakeren
+                            setTimeout(startTidtaker, ventTilForsteSpm/4); //start tidtakeren
                             popAktuellEkspertmodus();
                             setTimeout(kobleInnLyttere, ventTilNyttSpm);
                             //resetInputVerdier();
@@ -402,7 +402,7 @@
                     })
                 }
             else {
-                setTimeout(startTidtaker, ventTilForsteSpm);  //start tidtakeren
+                setTimeout(startTidtaker, ventTilForsteSpm/4);  //start tidtakeren
                 popAktuellEkspertmodus();
                 setTimeout(kobleInnLyttere, ventTilNyttSpm);
                 //resetInputVerdier();
@@ -432,7 +432,7 @@
                      btnVelgTall.innerHTML = "Video on";
                      showVideo = true;
                  }
-                 setTimeout(startTidtaker, ventTilForsteSpm/2);
+                 setTimeout(startTidtaker, ventTilForsteSpm/4);
                  setTimeout(resetInputVerdier, ventTilForsteSpm/2);
             }
             else if ((tall1Norm == "..") || (tall2Norm == "..") || tall3Norm == "..") {    // Programmet skal i kalkulatormodus
