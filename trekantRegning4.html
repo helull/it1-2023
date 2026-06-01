@@ -177,6 +177,7 @@
         var antallDesimaler = 1;
         var kalkulatorModus = false;
         var tidtaker;
+        var showVideo = true;
         var btnVelgTall = document.getElementById("btnVelgTall");
 
         var gladLyd = document.getElementById("gladLyd");
@@ -210,41 +211,22 @@
             var tidsPresentasjon = String((800/nyTid).toFixed(1));
             clearInterval(tidtaker);
 
-/*
-const input = document.activeElement;
-
-input.setAttribute("readonly", true);
-input.blur();
-
-setTimeout(() => {
-    input.removeAttribute("readonly");
-}, 100);*/
             tidtaker = setInterval(tellNed, nyTid);
             btnVelgTall.innerHTML = "Lvl: "+ String(ekspertModusGrenseIndex) + ", Tempo: " + tidsPresentasjon;
-
-            
-            
+          
             var filnavn = String(ekspertModusGrenseIndex)+".mp4";
-
-
-fetch(filnavn, { method: "HEAD" })
-    .then(response => {
-        if (response.ok) {
-            console.log("Video finnes ✅");
-            videoFil.src = filnavn;
-            videoFil.style.display = "block";
-            videoFil.load();
-            videoFil.play();
-        } else {
-            console.log("Video finnes ikke ❌");
-        }
-    })
-
-            
-            /*videoFil.src = filnavn;
-            videoFil.style.display = "block";
-            videoFil.load();
-            videoFil.play(); */
+            fetch(filnavn, { method: "HEAD" }) //Vis videoen hvis den finnes, og hvis showVideo er true
+                .then(response => {
+                    if (response.ok && (showVideo == true)) {
+                        console.log("Video finnes ✅");
+                        videoFil.src = filnavn;
+                        videoFil.style.display = "block";
+                        videoFil.load();
+                        videoFil.play();
+                    } else {
+                        console.log("Video finnes ikke ❌");
+                    }
+                })
 
             popAktuellEkspertmodus();
             setTimeout(kobleInnLyttere, ventTilNyttSpm);
@@ -428,7 +410,20 @@ fetch(filnavn, { method: "HEAD" })
             console.log("stdversjoner: ", tall1, tall2, tall3)
 
             //stop, bruk trekanten som kalkulator
-            if ((tall1Norm == "..") || (tall2Norm == "..") || tall3Norm == "..") {    // Programmet skal i kalkulatormodus
+            if ((tall1Norm == "...") || (tall2Norm == "...") || tall3Norm == "...") {    // Programmet skal droppe videoer
+                 clearInterval(tidtaker);
+                 if (showVideo == true) {
+                     btnVelgTall.innerHTML = "Video off";
+                     showVideo = false;
+                 }
+                 else {
+                     btnVelgTall.innerHTML = "Video on";
+                     showVideo = true;
+                 }
+                 setTimeout(startTidtaker, ventTilForsteSpm/2);
+                 setTimeout(resetInputVerdier, ventTilForsteSpm/2);
+            }
+            else if ((tall1Norm == "..") || (tall2Norm == "..") || tall3Norm == "..") {    // Programmet skal i kalkulatormodus
                  clearInterval(tidtaker);
                  inpTall1.value = "";
                  inpTall2.value = "";
