@@ -220,7 +220,7 @@
           
             var filnavn = String(ekspertModusGrenseIndex)+".mp4";
             if (showVideo == true) {
-            fetch(filnavn, { method: "HEAD" }) //Vis videoen hvis den finnes, og hvis showVideo er true
+            fetch(filnavn, { method: "HEAD" }) //Vis videoen hvis den finnes
                 .then(response => {
                     if (response.ok) {
                         console.log("Video finnes ✅");
@@ -230,10 +230,10 @@
                         videoFil.load();
                         videoFil.play();
                     } else {
-                        /*tidtaker = setInterval(tellNed, nyTid);
+                        tidtaker = setInterval(tellNed, nyTid);
                         popAktuellEkspertmodus();
                         setTimeout(kobleInnLyttere, ventTilNyttSpm);
-                        resetInputVerdier();*/
+                        resetInputVerdier();
                         console.log("Video finnes ikke ❌");
                     }
                 })
