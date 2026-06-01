@@ -137,10 +137,6 @@
         Nettleseren støtter ikke video.
     </video>
 
-    <audio id="gladLyd">
-        <source src="0.mp3" type="audio/mpeg">
-    </audio>
-
     <script>
         var poeng = 0;
         if (localStorage.trekantPoeng_v11) {
@@ -179,9 +175,8 @@
         var tidtaker;
         var showVideo = true;
         var btnVelgTall = document.getElementById("btnVelgTall");
-
-        var gladLyd = document.getElementById("gladLyd");
-
+        var nyTid = 1;
+        
         var videoFil = document.getElementById("videoFil");
 
         function videoFerdig() {
@@ -217,7 +212,7 @@
 
         function settNedtellingstid() {
             kobleUtLyttere();
-            var nyTid = 800+(ekspertModusGrenseIndex*150)
+            nyTid = 800+(ekspertModusGrenseIndex*150)
             var tidsPresentasjon = String((800/nyTid).toFixed(1));
             clearInterval(tidtaker);
 
@@ -495,7 +490,6 @@
                 console.log("ekspertmodusGrense gjør at ekspertmodusGrenseIndex øker med 1");
                 ekspertModusGrenseIndex = ekspertModusGrenseIndex + 1;
                 settNedtellingstid();
-                gladLyd.play();
             }
 
             //Hvis forrige var feil, og ekspertmodus er OVER 1
@@ -508,9 +502,6 @@
             
             //Brukeren har svart riktig
             if (Math.abs(tall1 - (tall2 * tall3)) < 0.01) {
-                if (poeng%100 == 0) {
-                    gladLyd.play();
-                }
                 forrigeVarRett = true;
                 btnVelgTall.style.backgroundColor = "lightgrey";
                 poeng = poeng + pF;
