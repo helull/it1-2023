@@ -205,13 +205,14 @@
         }
 
         function settNedtellingstid() {
+            console.log("i settNedtellingstid");
             kobleUtLyttere();
             nedTellingsIntervall = 800+(ekspertModusGrenseIndex*150)
             var tidsPresentasjon = String((800/nedTellingsIntervall).toFixed(1));
-            stoppTidtaker();
+            //stoppTidtaker();
             btnVelgTall.innerHTML = "Lvl: "+ String(ekspertModusGrenseIndex) + ", Tempo: " + tidsPresentasjon;
         
-            setTimeout(startTidtaker, ventTilForsteSpm);  //start tidtakeren
+            //setTimeout(startTidtaker, ventTilForsteSpm);  //start tidtakeren
             popAktuellEkspertmodus();
             setTimeout(kobleInnLyttere, ventTilNyttSpm);
             //resetInputVerdier();
