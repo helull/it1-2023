@@ -152,10 +152,7 @@
 
         const ventTilForsteSpm = 2000;         //ventetid før neste spørsmål kommer
         const ventTilNyttSpm = 500;          //tid å vente til neste spm, i millisekunder
-        const nedTellingsIntervallMin = 200;  //minimum hastighet på "klokka" som går
-        const nedTellingsIntervallMax = 2000; //max hastighet på "klokka" som går
-        const nedTellingsIntervallStep = 100; //endringshastighet (ved + og -) på "klokka" som går
-        var  nedTellingsIntervall = 1000;     //hastighet på "klokka" som går, normalt 1000 milliSekunder.
+        var  nedTellingsIntervall = 1000;     //hastighet på "klokka" som går, normalt 1000 milliSekunder
         var  oppstart = true;
 
         var ekspertModusGrenseIndex = 0;
@@ -175,7 +172,6 @@
         var tidtaker;
         var showVideo = true;
         var btnVelgTall = document.getElementById("btnVelgTall");
-        var nyTid = 1;
         
         var videoFil = document.getElementById("videoFil");
 
@@ -210,8 +206,8 @@
 
         function settNedtellingstid() {
             kobleUtLyttere();
-            nyTid = 800+(ekspertModusGrenseIndex*150)
-            var tidsPresentasjon = String((800/nyTid).toFixed(1));
+            nedTellingsIntervall = 800+(ekspertModusGrenseIndex*150)
+            var tidsPresentasjon = String((800/nedTellingsIntervall).toFixed(1));
             clearInterval(tidtaker);  //stopp tidtakeren
             btnVelgTall.innerHTML = "Lvl: "+ String(ekspertModusGrenseIndex) + ", Tempo: " + tidsPresentasjon;
         
@@ -602,8 +598,8 @@
 
         //start tidtakeren (litt forsinket aller første gang, derfor som egen funsjon)
         function startTidtaker() {
-            console.log("I STARTtidtker: ny Tid er: ", nyTid)
-            tidtaker = setInterval(tellNed, nyTid);
+            console.log("I STARTtidtker: ny Tid er: ", nedTellingsIntervall)
+            tidtaker = setInterval(tellNed, nedTellingsIntervall);
         }
 
         //Beregn hva som skal stå i level'ene.
