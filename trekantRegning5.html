@@ -154,6 +154,7 @@
         const ventTilNyttSpm = 500;          //tid å vente til neste spm, i millisekunder
         var  nedTellingsIntervall = 1000;     //hastighet på "klokka" som går, normalt 1000 milliSekunder
         var  oppstart = true;
+        var  tidtakerKjorer = false;
 
         var ekspertModusGrenseIndex = 0;
         var forrigeVarRett = true;
@@ -209,10 +210,10 @@
             kobleUtLyttere();
             nedTellingsIntervall = 800+(ekspertModusGrenseIndex*150)
             var tidsPresentasjon = String((800/nedTellingsIntervall).toFixed(1));
-            //stoppTidtaker();
+            stoppTidtaker();
             btnVelgTall.innerHTML = "Lvl: "+ String(ekspertModusGrenseIndex) + ", Tempo: " + tidsPresentasjon;
         
-            //setTimeout(startTidtaker, ventTilForsteSpm);  //start tidtakeren
+            setTimeout(startTidtaker, ventTilForsteSpm);  //start tidtakeren
             popAktuellEkspertmodus();
             setTimeout(kobleInnLyttere, ventTilNyttSpm);
             //resetInputVerdier();
@@ -599,14 +600,21 @@
 
         //start tidtakeren (litt forsinket aller første gang, derfor som egen funsjon)
         function startTidtaker() {
-            console.log("I STARTtidtker: ny Tid er: ", nedTellingsIntervall)
-            tidtaker = setInterval(tellNed, nedTellingsIntervall);
+            console.log("I STARTtidtker: ny Tid er: ", nedTellingsIntervall);
+            if (!tidtakerKjorer) {
+                tidtaker = setInterval(tellNed, nedTellingsIntervall);
+                tidtakerKjorer = true;
+            }
         }
 
         //stopp tidtakeren (for å ha litt kontroll på galskapen)
         function stoppTidtaker() {
             console.log("I stoppTidtaker: ny Tid er: ", nedTellingsIntervall);
-            clearInterval(tidtaker);  //stopp tidtakeren
+            if (tidtakerKjorer) {
+                clearInterval(tidtaker);  //stopp tidtakeren
+                tidtakerKjorer = false;
+            }
+
         }
         
         //Beregn hva som skal stå i level'ene.
