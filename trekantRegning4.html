@@ -7,6 +7,8 @@
     <title>Document</title>
     <style>
         body {
+            position: relative;
+            z-index: 1;
             display: flex;
             display: -webkit-flex;
             flex-direction: column;
@@ -38,6 +40,8 @@
 
         #videoFil {
             display: none;
+            position: absolute; /* eller fixed / relative */
+            z-index: 10;
         }
         
         #trekant {
