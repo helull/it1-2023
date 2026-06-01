@@ -132,7 +132,7 @@
     <div id="hurtigTaster">
     </div>
     <br>
-    <video id="videoFil" width="600" controls style="width: 80%; max-width: 60%">
+    <video id="videoFil" width="600" controls style="width: 70%; max-width: 50%">
         <source src="1.mp4" type="video/mp4">
         Nettleseren støtter ikke video.
     </video>
@@ -183,8 +183,17 @@
         var gladLyd = document.getElementById("gladLyd");
 
         var videoFil = document.getElementById("videoFil");
-        videoFil.addEventListener("ended", function () {videoFil.style.display = "none";});
+
+        function videoFerdig() {
+            videoFil.style.display = "none";
+            tidtaker = setInterval(tellNed, nyTid);
+            popAktuellEkspertmodus();
+            setTimeout(kobleInnLyttere, ventTilNyttSpm);
+            resetInputVerdier();
+        }
         
+        videoFil.addEventListener("ended", videoFerdig);
+       
         function tellNed() {
             if (poeng > 0) {
                 poeng--;
@@ -214,23 +223,30 @@
             btnVelgTall.innerHTML = "Lvl: "+ String(ekspertModusGrenseIndex) + ", Tempo: " + tidsPresentasjon;
           
             var filnavn = String(ekspertModusGrenseIndex)+".mp4";
+            if (showVideo == true) {
             fetch(filnavn, { method: "HEAD" }) //Vis videoen hvis den finnes, og hvis showVideo er true
                 .then(response => {
-                    if (response.ok && (showVideo == true)) {
+                    if (response.ok) {
                         console.log("Video finnes ✅");
                         videoFil.src = filnavn;
                         videoFil.style.display = "block";
                         videoFil.load();
                         videoFil.play();
                     } else {
+                        tidtaker = setInterval(tellNed, nyTid);
+                        popAktuellEkspertmodus();
+                        setTimeout(kobleInnLyttere, ventTilNyttSpm);
+                        resetInputVerdier();
                         console.log("Video finnes ikke ❌");
                     }
                 })
-
+            }
+        else {
             tidtaker = setInterval(tellNed, nyTid);
             popAktuellEkspertmodus();
             setTimeout(kobleInnLyttere, ventTilNyttSpm);
             resetInputVerdier();
+        }
         }
         
         function settLevel(evt) {
