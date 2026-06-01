@@ -246,13 +246,13 @@
         function kobleInnLyttere() {
             btnVelgTall.addEventListener("click", vurderTallene);
             document.addEventListener("keypress", tastaturHendelse);
-            hurtigtaster.addEventListener("click", settLevel);
+            hurtigTaster.addEventListener("click", settLevel);
         }
         
         function kobleUtLyttere() {
             btnVelgTall.removeEventListener("click", vurderTallene);
             document.removeEventListener("keypress", tastaturHendelse);
-            hurtigtaster.removeEventListener("click", settLevel);
+            hurtigTaster.removeEventListener("click", settLevel);
 
         }
 
